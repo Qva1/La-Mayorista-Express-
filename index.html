@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA MAYORISTA EXPRESS</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f2f2f2;
+}
+header{
+  background:#0b8f6a;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{font-size:18px;margin:0;}
+header button{
+  background:#fff;
+  color:#0b8f6a;
+  border:none;
+  padding:8px 12px;
+  border-radius:5px;
+}
+
+section{
+  padding:15px;
+  background:white;
+  margin-bottom:10px;
+}
+
+input,select{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+
+.productos{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.producto{
+  background:#fff;
+  border-radius:8px;
+  padding:10px;
+  box-shadow:0 0 5px rgba(0,0,0,.1);
+}
+.producto h3{font-size:14px;margin:5px 0;}
+.producto button{
+  width:100%;
+  padding:6px;
+  background:#0b8f6a;
+  color:white;
+  border:none;
+  border-radius:5px;
+}
+
+.carrito{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:100%;
+  height:100%;
+  background:white;
+  z-index:999;
+  padding:15px;
+  overflow:auto;
+  transition:.3s;
+}
+.carrito.activo{right:0;}
+
+.carrito button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#0b8f6a;
+  color:white;
+  border:none;
+  border-radius:5px;
+}
+
+/* SOPORTE */
+.soporte{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  background:#25D366;
+  color:white;
+  padding:12px 15px;
+  border-radius:50px;
+  font-size:14px;
+  text-decoration:none;
+  box-shadow:0 4px 8px rgba(0,0,0,.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>LA MAYORISTA EXPRESS</h1>
+<button onclick="toggleCarrito()">🛒 <span id="count">0</span></button>
+</header>
+
+<section>
+<h3>📋 DATOS DEL CLIENTE</h3>
+<input id="nombre" placeholder="Nombre completo">
+<input id="telefono" placeholder="Teléfono">
+<input id="direccion" placeholder="Dirección">
+</section>
+
+<section>
+<h3>💳 FORMA DE PAGO</h3>
+<select id="pago">
+<option>CUP</option>
+<option>USD</option>
+<option>MLC</option>
+<option>CRIPTO</option>
+<option>TARJETA CLÁSICA</option>
+</select>
+
+<h3>🚚 ENTREGA</h3>
+<select id="entrega">
+<option>MENSAJERÍA</option>
+<option>RECOGER EN TIENDA</option>
+</select>
+</section>
+
+<section class="productos" id="productos"></section>
+
+<!-- CARRITO -->
+<div class="carrito" id="carrito">
+<button onclick="toggleCarrito()">❌ CERRAR</button>
+<h2>🧾 FACTURA</h2>
+<div id="lista"></div>
+<h3>TOTAL: <span id="total">0</span> CUP</h3>
+<button onclick="enviarWhatsApp()">📲 ENVIAR POR WHATSAPP</button>
+</div>
+
+<!-- SOPORTE -->
+<a class="soporte"
+href="https://wa.me/53420021?text=Hola%20necesito%20ayuda%20con%20LA%20MAYORISTA%20EXPRESS">
+💬 SOPORTE
+</a>
+
+<script>
+const productos=[
+{n:"Arroz 50kg",p:21560,m:1},
+{n:"Azúcar 50kg",p:23100,m:1},
+{n:"Frijol Negro 50kg",p:21560,m:1},
+{n:"Harina Maíz 50kg",p:11550,m:1},
+{n:"Aceite 12x1L",p:10080,m:1},
+{n:"Leche en Polvo 25kg",p:53900,m:1},
+{n:"Sal 50kg",p:5775,m:1},
+{n:"Pasta 20x500g",p:4900,m:1},
+{n:"Huevos 300 uds",p:20300,m:1},
+{n:"Pollo Congelado 10kg",p:5390,m:1},
+{n:"Picadillo Caja",p:6160,m:1},
+{n:"Salchicha 10kg",p:9240,m:1},
+{n:"Margarina Caja",p:4700,m:1},
+{n:"Galletas Caja",p:4704,m:1},
+{n:"Café 10kg",p:3696,m:1},
+{n:"Lentejas 50kg",p:23100,m:1},
+{n:"Arvejas 50kg",p:23100,m:1},
+{n:"Atún Caja",p:4900,m:1},
+{n:"Sardinas Caja",p:4900,m:1},
+{n:"Aceite Oliva Caja",p:12600,m:1},
+{n:"Vinagre Caja",p:840,m:1},
+{n:"Cloro Caja",p:2100,m:1},
+{n:"Detergente Caja",p:8400,m:1},
+{n:"Jabón Caja",p:7700,m:1},
+{n:"Ajo 5kg",p:770,m:1},
+{n:"Tomate 50kg",p:23100,m:1},
+{n:"Manteca 20kg",p:18480,m:1},
+{n:"Pan Casabe Pack",p:315,m:1},
+{n:"Verduras Mixtas 20kg",p:3080,m:1},
+{n:"Frutas Variadas 20kg",p:3080,m:1}
+];
+
+let carrito=JSON.parse(localStorage.getItem("carrito"))||[];
+
+const cont=document.getElementById("productos");
+
+productos.forEach((x,i)=>{
+cont.innerHTML+=`
+<div class="producto">
+<h3>${x.n}</h3>
+<p>Precio: ${x.p} CUP</p>
+<p>Mínimo: ${x.m}</p>
+<button onclick="add(${i})">AGREGAR</button>
+</div>`;
+});
+
+function add(i){
+carrito.push(productos[i]);
+guardar();
+}
+
+function guardar(){
+localStorage.setItem("carrito",JSON.stringify(carrito));
+render();
+}
+
+function render(){
+document.getElementById("count").innerText=carrito.length;
+let lista="",total=0;
+carrito.forEach(x=>{
+lista+=`<p>${x.n} - ${x.p} CUP</p>`;
+total+=x.p;
+});
+document.getElementById("lista").innerHTML=lista;
+document.getElementById("total").innerText=total;
+}
+render();
+
+function toggleCarrito(){
+document.getElementById("carrito").classList.toggle("activo");
+}
+
+function enviarWhatsApp(){
+let msg=`LA MAYORISTA EXPRESS%0A%0A`;
+msg+=`Cliente: ${nombre.value}%0A`;
+msg+=`Tel: ${telefono.value}%0A`;
+msg+=`Dir: ${direccion.value}%0A%0AProductos:%0A`;
+carrito.forEach(x=>msg+=`- ${x.n} ${x.p} CUP%0A`);
+msg+=`%0APago: ${pago.value}%0AEntrega: ${entrega.value}`;
+window.open(`https://wa.me/53420021?text=${msg}`);
+}
+</script>
+
+</body>
+</html>
