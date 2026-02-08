@@ -12,6 +12,7 @@ margin:0;
 font-family:system-ui,-apple-system,Segoe UI,Roboto;
 background:#f5f5f5;
 color:#222;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -48,10 +49,23 @@ font-size:16px;
 font-weight:800;
 }
 
-/* SEARCH */
-.search{
-margin-top:12px;
+/* INFO RIBBON */
+.ribbon{
+background:#111;
+color:#fff;
+padding:8px;
+font-size:14px;
+text-align:center;
+animation:scroll 12s linear infinite;
+white-space:nowrap;
 }
+@keyframes scroll{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
+
+/* SEARCH */
+.search{margin-top:12px}
 .search input{
 width:100%;
 padding:14px;
@@ -69,7 +83,7 @@ background:linear-gradient(90deg,#ff7a18,#ffb347);
 color:white;
 font-size:20px;
 font-weight:900;
-animation:fadeIn .5s;
+animation:fadeIn .6s;
 }
 
 /* PRODUCTS */
@@ -86,12 +100,9 @@ padding:14px;
 box-shadow:0 6px 14px rgba(0,0,0,.12);
 display:flex;
 flex-direction:column;
-animation:slideUp .4s;
+animation:slideUp .35s;
 }
-.product h3{
-font-size:16px;
-margin:8px 0;
-}
+.product h3{font-size:16px;margin:8px 0}
 .price{
 font-size:20px;
 font-weight:900;
@@ -118,13 +129,11 @@ color:white;
 font-weight:900;
 }
 
-/* CART FULLSCREEN */
+/* CART */
 .cart{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+top:0;left:0;
+width:100%;height:100%;
 background:white;
 z-index:999;
 padding:16px;
@@ -132,9 +141,7 @@ overflow:auto;
 transform:translateY(100%);
 transition:.35s;
 }
-.cart.active{transform:translateY(0);}
-
-.cart h2{margin-top:10px}
+.cart.active{transform:translateY(0)}
 
 .cart-item{
 display:flex;
@@ -142,36 +149,18 @@ justify-content:space-between;
 align-items:center;
 padding:12px 0;
 border-bottom:1px solid #eee;
-font-size:16px;
-}
-.cart-item button{
-padding:6px 10px;
-border:none;
-border-radius:10px;
-background:#ff5a00;
-color:white;
-font-size:16px;
-margin-left:6px;
 }
 
-.checkout{
-margin-top:20px;
-}
-.checkout input, .checkout select{
+.checkout input,select,button{
 width:100%;
 padding:14px;
-border-radius:14px;
-border:1px solid #ccc;
-font-size:16px;
 margin-bottom:12px;
+border-radius:14px;
+font-size:16px;
 }
 .checkout button{
-width:100%;
-padding:16px;
-font-size:18px;
-border:none;
-border-radius:18px;
 background:#ff5a00;
+border:none;
 color:white;
 font-weight:900;
 }
@@ -185,21 +174,50 @@ background:#25D366;
 color:white;
 padding:16px 20px;
 border-radius:40px;
-font-size:16px;
 font-weight:900;
 text-decoration:none;
 box-shadow:0 6px 14px rgba(0,0,0,.35);
 }
 
+/* POPUP ADS */
+.popup{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.92);
+color:white;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000;
+animation:fadeIn .4s;
+}
+.popup-content{
+background:#ff5a00;
+padding:30px;
+border-radius:20px;
+max-width:90%;
+text-align:center;
+animation:scaleIn .4s;
+}
+.popup-content h2{margin-top:0}
+.popup-close{
+position:absolute;
+top:20px;
+right:20px;
+font-size:22px;
+background:#000;
+border:none;
+color:white;
+padding:10px 14px;
+border-radius:50%;
+display:none;
+}
+
 /* ANIMATIONS */
-@keyframes slideUp{
-from{transform:translateY(20px);opacity:0}
-to{transform:translateY(0);opacity:1}
-}
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
-}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{transform:scale(.8)}to{transform:scale(1)}}
 </style>
 </head>
 
@@ -211,13 +229,15 @@ to{opacity:1}
 <div class="total-header">TOTAL: <span id="totalHeader">0</span> CUP</div>
 <button class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></button>
 </div>
-<div class="search">
-<input placeholder="Buscar productos mayoristas">
-</div>
+<div class="search"><input placeholder="Buscar productos mayoristas"></div>
 </header>
 
+<div class="ribbon">
+🎁 10% DE DESCUENTO EN TU PRIMERA COMPRA · ENVÍOS A TODA CUBA · PAGO EN CUP USD MLC CRIPTO
+</div>
+
 <div class="banner">
-🔥 Precios mayoristas directos a Cuba
+🔥 Precios mayoristas reales para Cuba
 </div>
 
 <div class="products" id="products"></div>
@@ -227,110 +247,58 @@ to{opacity:1}
 <button onclick="toggleCart()">❌ Cerrar</button>
 <h2>🧾 Carrito</h2>
 <div id="cartList"></div>
-
-<h3>TOTAL A PAGAR: <span id="totalCart">0</span> CUP</h3>
+<h3>TOTAL: <span id="totalCart">0</span> CUP</h3>
 
 <div class="checkout">
-<input id="nombre" placeholder="Nombre completo">
+<input id="nombre" placeholder="Nombre">
 <input id="telefono" placeholder="Teléfono">
 <input id="direccion" placeholder="Dirección">
 
 <select id="pago">
-<option>CUP</option>
-<option>USD</option>
-<option>MLC</option>
-<option>CRIPTO</option>
-<option>TARJETA CLÁSICA</option>
+<option>CUP</option><option>USD</option><option>MLC</option>
+<option>CRIPTO</option><option>TARJETA CLÁSICA</option>
 </select>
 
 <select id="entrega">
 <option>MENSAJERÍA</option>
+<option>RECOGER EN TIENDA</option>
 </select>
 
 <button onclick="enviarWhatsApp()">FINALIZAR PEDIDO</button>
 </div>
 </div>
 
-<a class="support"
-href="https://wa.me/53420021?text=Hola%2C%20necesito%20ayuda%20con%20LA%20MAYORISTA%20EXPRESS">
-💬 SOPORTE
-</a>
+<a class="support" href="https://wa.me/53420021">💬 SOPORTE</a>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<button class="popup-close" id="closePopup" onclick="closePopup()">❌</button>
+<div class="popup-content" id="popupText"></div>
+</div>
 
 <script>
-const productsData=[
-{name:"Arroz 50kg",price:21560,old:30800},
-{name:"Azúcar 50kg",price:23100,old:33000},
-{name:"Aceite 12x1L",price:10080,old:14400},
-{name:"Leche Polvo 25kg",price:53900,old:77000},
-{name:"Frijol Negro 50kg",price:21560,old:30800},
-{name:"Pasta Caja",price:4900,old:7000},
-{name:"Huevos 300 uds",price:20300,old:29000},
-{name:"Pollo 10kg",price:5390,old:7700},
-{name:"Detergente Caja",price:8400,old:12000},
-{name:"Jabón Caja",price:7700,old:11000},
+const anuncios=[
+"🎉 10% de descuento en tu primera compra",
+"🚚 Entregas rápidas en toda Cuba",
+"💰 Precios 30% más bajos que el mercado",
+"📦 Compra mayorista segura y confiable"
 ];
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
+function showPopup(){
+const p=document.getElementById("popup");
+const t=document.getElementById("popupText");
+const c=document.getElementById("closePopup");
+t.innerHTML="<h2>"+anuncios[Math.floor(Math.random()*anuncios.length)]+"</h2>";
+p.style.display="flex";
+c.style.display="none";
+setTimeout(()=>c.style.display="block",3000);
+}
 
-const products=document.getElementById("products");
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
 
-productsData.forEach((p,i)=>{
-products.innerHTML+=`
-<div class="product">
-<h3>${p.name}</h3>
-<div class="price">${p.price} CUP</div>
-<div class="old">${p.old} CUP</div>
-<div class="controls">
-<button onclick="add(${i})">+</button>
-<button onclick="remove(${i})">-</button>
-</div>
-</div>`;
-});
-
-function add(i){
-let item=cart.find(x=>x.name===productsData[i].name);
-if(item)item.qty++;
-else cart.push({...productsData[i],qty:1});
-save();
-}
-function remove(i){
-let item=cart.find(x=>x.name===productsData[i].name);
-if(item){item.qty--;if(item.qty<=0)cart=cart.filter(x=>x.name!==item.name);}
-save();
-}
-function save(){
-localStorage.setItem("cart",JSON.stringify(cart));
-render();
-}
-function render(){
-let html="",total=0,count=0;
-cart.forEach(x=>{
-html+=`
-<div class="cart-item">
-${x.name} x${x.qty}
-<div>
-<button onclick="addBy('${x.name}')">+</button>
-<button onclick="removeBy('${x.name}')">-</button>
-</div>
-</div>`;
-total+=x.price*x.qty;
-count+=x.qty;
-});
-document.getElementById("cartList").innerHTML=html||"<p>Carrito vacío</p>";
-document.getElementById("totalCart").innerText=total;
-document.getElementById("totalHeader").innerText=total;
-document.getElementById("count").innerText=count;
-}
-function addBy(n){add(productsData.findIndex(x=>x.name===n))}
-function removeBy(n){remove(productsData.findIndex(x=>x.name===n))}
-function toggleCart(){document.getElementById("cart").classList.toggle("active")}
-function enviarWhatsApp(){
-let msg=`LA MAYORISTA EXPRESS%0ACliente: ${nombre.value}%0ATel: ${telefono.value}%0ADir: ${direccion.value}%0A%0A`;
-cart.forEach(x=>msg+=`${x.name} x${x.qty}%0A`);
-msg+=`%0ATOTAL: ${totalCart.innerText} CUP%0APago: ${pago.value}`;
-window.open(`https://wa.me/53420021?text=${msg}`);
-}
-render();
+setInterval(showPopup,30000+Math.random()*30000);
 </script>
 
 </body>
