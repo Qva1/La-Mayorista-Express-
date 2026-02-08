@@ -6,15 +6,17 @@
 <title>LA MAYORISTA EXPRESS</title>
 
 <style>
+*{box-sizing:border-box}
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f2f2f2;
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
+background:#f4f6f8;
+color:#222;
 }
 header{
 background:#0b8f6a;
-color:white;
-padding:12px;
+color:#fff;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -22,120 +24,162 @@ position:sticky;
 top:0;
 z-index:10;
 }
-header h1{font-size:16px;margin:0;}
+header h1{
+margin:0;
+font-size:20px;
+font-weight:700;
+}
 header .top{
 display:flex;
-gap:10px;
 align-items:center;
+gap:12px;
+font-size:16px;
 }
 header button{
 background:#fff;
 color:#0b8f6a;
 border:none;
-padding:6px 10px;
-border-radius:5px;
-font-size:13px;
+padding:10px 14px;
+border-radius:8px;
+font-size:16px;
+font-weight:600;
 }
 
 section{
-padding:12px;
-background:white;
-margin-bottom:10px;
-border-radius:10px;
+background:#fff;
+margin:12px;
+padding:16px;
+border-radius:14px;
 }
 
-.grid-2{
+.grid{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+grid-template-columns:1fr;
+gap:12px;
 }
 
 input,select{
 width:100%;
-padding:8px;
-margin-top:5px;
-border-radius:6px;
+padding:12px;
+border-radius:10px;
 border:1px solid #ccc;
-font-size:13px;
+font-size:16px;
 }
 
 .productos{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+gap:14px;
+padding:12px;
 }
 
 .producto{
 background:#fff;
-border-radius:10px;
-padding:10px;
-box-shadow:0 0 5px rgba(0,0,0,.1);
-font-size:13px;
-}
-.producto h3{margin:5px 0;font-size:14px;}
-.producto .controls{
+border-radius:16px;
+padding:14px;
+box-shadow:0 6px 12px rgba(0,0,0,.08);
 display:flex;
-gap:5px;
+flex-direction:column;
+justify-content:space-between;
 }
-.producto button{
+.producto h3{
+margin:0 0 8px;
+font-size:16px;
+}
+.producto p{
+margin:4px 0;
+font-size:15px;
+font-weight:600;
+color:#0b8f6a;
+}
+.controls{
+display:flex;
+gap:8px;
+margin-top:10px;
+}
+.controls button{
 flex:1;
-padding:6px;
+padding:10px;
+font-size:18px;
+border:none;
+border-radius:10px;
 background:#0b8f6a;
 color:white;
-border:none;
-border-radius:5px;
+font-weight:700;
 }
 
-/* CARRITO FULLSCREEN */
+/* CARRITO */
 .carrito{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:white;
+background:#fff;
 z-index:999;
-padding:15px;
+padding:16px;
 overflow:auto;
 transform:translateY(100%);
-transition:.3s;
+transition:.35s;
 }
 .carrito.activo{transform:translateY(0);}
+
+.carrito h2{
+margin-top:10px;
+}
 
 .carrito-item{
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:10px 0;
 border-bottom:1px solid #eee;
-padding:6px 0;
-font-size:13px;
+font-size:16px;
+}
+.carrito-item button{
+padding:6px 10px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:#0b8f6a;
+color:white;
+margin-left:6px;
 }
 
-.carrito-item button{
-padding:3px 6px;
-font-size:12px;
+.carrito button.main{
+margin-top:20px;
+width:100%;
+padding:14px;
+font-size:18px;
+border:none;
+border-radius:14px;
+background:#0b8f6a;
+color:white;
+font-weight:700;
 }
 
 /* SOPORTE */
 .soporte{
 position:fixed;
-bottom:15px;
-right:15px;
+bottom:20px;
+right:20px;
 background:#25D366;
 color:white;
-padding:12px 16px;
-border-radius:30px;
-font-size:14px;
+padding:14px 18px;
+border-radius:40px;
+font-size:16px;
+font-weight:700;
 text-decoration:none;
-box-shadow:0 4px 8px rgba(0,0,0,.3);
+box-shadow:0 6px 12px rgba(0,0,0,.3);
 }
+
 .alerta{
 background:#ffe1e1;
 color:#a40000;
-padding:8px;
-border-radius:6px;
-font-size:13px;
-margin-top:8px;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
+font-size:15px;
 display:none;
 }
 </style>
@@ -151,17 +195,13 @@ display:none;
 </div>
 </header>
 
-<section class="grid-2">
-<div>
-<input id="nombre" placeholder="Nombre">
+<section class="grid">
+<input id="nombre" placeholder="Nombre completo">
 <input id="telefono" placeholder="Teléfono">
-</div>
-<div>
-<input id="direccion" placeholder="Dirección">
-</div>
+<input id="direccion" placeholder="Dirección de entrega">
 </section>
 
-<section>
+<section class="grid">
 <select id="pago">
 <option>CUP</option>
 <option>USD</option>
@@ -174,6 +214,7 @@ display:none;
 <option>MENSAJERÍA</option>
 <option>RECOGER EN TIENDA</option>
 </select>
+
 <div class="alerta" id="alertaEntrega">
 🚫 Actualmente solo está disponible la entrega por mensajería.
 </div>
@@ -186,7 +227,7 @@ display:none;
 <h2>🧾 FACTURA</h2>
 <div id="lista"></div>
 <h3>TOTAL: <span id="total">0</span> CUP</h3>
-<button onclick="enviarWhatsApp()">📲 ENVIAR POR WHATSAPP</button>
+<button class="main" onclick="enviarWhatsApp()">📲 ENVIAR POR WHATSAPP</button>
 </div>
 
 <a class="soporte" href="https://wa.me/53420021?text=Hola%2C%20necesito%20ayuda">
@@ -197,18 +238,37 @@ display:none;
 const productos=[
 {n:"Arroz 50kg",p:21560},
 {n:"Azúcar 50kg",p:23100},
+{n:"Frijol Negro 50kg",p:21560},
+{n:"Harina Maíz 50kg",p:11550},
 {n:"Aceite 12x1L",p:10080},
 {n:"Leche Polvo 25kg",p:53900},
-{n:"Frijol 50kg",p:21560},
+{n:"Sal 50kg",p:5775},
 {n:"Pasta Caja",p:4900},
-{n:"Huevos 300",p:20300},
+{n:"Huevos 300 uds",p:20300},
 {n:"Pollo 10kg",p:5390},
+{n:"Picadillo Caja",p:6160},
+{n:"Salchicha 10kg",p:9240},
+{n:"Margarina Caja",p:4700},
+{n:"Galletas Caja",p:4704},
+{n:"Café 10kg",p:3696},
+{n:"Lentejas 50kg",p:23100},
+{n:"Arvejas 50kg",p:23100},
+{n:"Atún Caja",p:4900},
+{n:"Sardinas Caja",p:4900},
+{n:"Aceite Oliva Caja",p:12600},
+{n:"Vinagre Caja",p:840},
+{n:"Cloro Caja",p:2100},
 {n:"Detergente Caja",p:8400},
-{n:"Jabón Caja",p:7700}
+{n:"Jabón Caja",p:7700},
+{n:"Ajo 5kg",p:770},
+{n:"Tomate 50kg",p:23100},
+{n:"Manteca 20kg",p:18480},
+{n:"Casabe Pack",p:315},
+{n:"Verduras Mixtas 20kg",p:3080},
+{n:"Frutas Variadas 20kg",p:3080}
 ];
 
 let carrito=JSON.parse(localStorage.getItem("carrito"))||[];
-
 const cont=document.getElementById("productos");
 
 productos.forEach((x,i)=>{
@@ -217,24 +277,21 @@ cont.innerHTML+=`
 <h3>${x.n}</h3>
 <p>${x.p} CUP</p>
 <div class="controls">
-<button onclick="add(${i})">➕</button>
-<button onclick="remove(${i})">➖</button>
+<button onclick="add(${i})">＋</button>
+<button onclick="remove(${i})">－</button>
 </div>
 </div>`;
 });
 
 function add(i){
-let item=carrito.find(x=>x.n===productos[i].n);
-if(item)item.c++;
+let it=carrito.find(x=>x.n===productos[i].n);
+if(it)it.c++;
 else carrito.push({...productos[i],c:1});
 guardar();
 }
 function remove(i){
-let item=carrito.find(x=>x.n===productos[i].n);
-if(item){
-item.c--;
-if(item.c<=0)carrito=carrito.filter(x=>x.n!==item.n);
-}
+let it=carrito.find(x=>x.n===productos[i].n);
+if(it){it.c--;if(it.c<=0)carrito=carrito.filter(x=>x.n!==it.n);}
 guardar();
 }
 function guardar(){
@@ -242,36 +299,28 @@ localStorage.setItem("carrito",JSON.stringify(carrito));
 render();
 }
 function render(){
-let lista="",total=0,c=0;
+let html="",total=0,c=0;
 carrito.forEach(x=>{
-lista+=`
+html+=`
 <div class="carrito-item">
-${x.n} (${x.c})
+${x.n} x${x.c}
 <div>
-<button onclick="addByName('${x.n}')">+</button>
-<button onclick="removeByName('${x.n}')">-</button>
+<button onclick="addBy('${x.n}')">+</button>
+<button onclick="removeBy('${x.n}')">-</button>
 </div>
 </div>`;
 total+=x.p*x.c;
 c+=x.c;
 });
-lista=lista||"<p>Carrito vacío</p>";
-document.getElementById("lista").innerHTML=lista;
+document.getElementById("lista").innerHTML=html||"<p>Carrito vacío</p>";
 document.getElementById("total").innerText=total;
 document.getElementById("totalHeader").innerText=total+" CUP";
 document.getElementById("count").innerText=c;
 }
-function addByName(n){
-let i=productos.findIndex(x=>x.n===n);
-add(i);
-}
-function removeByName(n){
-let i=productos.findIndex(x=>x.n===n);
-remove(i);
-}
-function toggleCarrito(){
-document.getElementById("carrito").classList.toggle("activo");
-}
+function addBy(n){add(productos.findIndex(x=>x.n===n))}
+function removeBy(n){remove(productos.findIndex(x=>x.n===n))}
+function toggleCarrito(){carritoEl.classList.toggle("activo")}
+const carritoEl=document.getElementById("carrito");
 function verEntrega(){
 if(entrega.value==="RECOGER EN TIENDA"){
 alertaEntrega.style.display="block";
@@ -288,4 +337,4 @@ render();
 </script>
 
 </body>
-  </html>
+</html>
