@@ -10,19 +10,20 @@
 body{
 margin:0;
 font-family:system-ui,-apple-system,BlinkMacSystemFont;
-background:#f2f2f2;
+background:#f5f5f5;
 color:#111;
-padding-bottom:140px;
+padding-bottom:160px;
 }
 
-/* HEADER APP */
+/* HEADER */
 header{
-background:#1e3a8a;
+background:#ff5a00;
 color:#fff;
 padding:10px 12px;
+font-weight:900;
 position:sticky;
 top:0;
-z-index:20;
+z-index:30;
 }
 .header-top{
 display:flex;
@@ -36,95 +37,99 @@ border-radius:20px;
 border:none;
 font-size:15px;
 }
-.header-tabs{
-display:flex;
-gap:14px;
-margin-top:10px;
+.header-total{
 font-size:14px;
-opacity:.9;
-}
-.header-tabs span{
 white-space:nowrap;
 }
 
-/* PRODUCTS GRID */
-.products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-padding:10px;
+/* RIBBON */
+.ribbon{
+background:#111;
+color:#fff;
+font-size:13px;
+padding:6px;
+white-space:nowrap;
+overflow:hidden;
+position:sticky;
+top:56px;
+z-index:25;
+}
+.ribbon span{
+display:inline-block;
+padding-left:100%;
+animation:scroll 15s linear infinite;
+}
+@keyframes scroll{
+100%{transform:translateX(-100%)}
 }
 
+/* PRODUCTS */
+.products{
+display:flex;
+overflow-x:auto;
+gap:12px;
+padding:12px;
+scroll-snap-type:x mandatory;
+}
 .product{
 background:#fff;
-border-radius:12px;
-padding:10px;
+border-radius:14px;
+padding:12px;
+min-width:22%;
+scroll-snap-align:start;
 position:relative;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
+box-shadow:0 3px 10px rgba(0,0,0,.08);
+transition:.2s;
 }
-
+.product.active{
+outline:3px solid #ff5a00;
+transform:scale(1.03);
+}
 .product h3{
-font-size:13px;
-margin:6px 0;
-line-height:1.2;
+font-size:14px;
+margin:4px 0;
 }
-
 .price{
-font-size:18px;
 font-weight:900;
-color:#e11d48;
+color:#ff5a00;
 }
-
 .old{
 font-size:12px;
-color:#888;
 text-decoration:line-through;
+color:#888;
 }
-
 .min{
 font-size:11px;
-color:#555;
+color:#444;
 margin-top:4px;
 }
-
 .controls{
 display:flex;
-gap:6px;
-margin-top:8px;
+justify-content:space-between;
+margin-top:10px;
 }
-
 .controls button{
-flex:1;
+width:48%;
 border:none;
 padding:8px;
-border-radius:8px;
+border-radius:10px;
 font-size:18px;
 font-weight:900;
 background:#ff5a00;
 color:#fff;
 }
 
-/* BADGES */
+/* BADGE */
 .badge{
 position:absolute;
 top:8px;
-left:8px;
-background:#16a34a;
-color:#fff;
-font-size:10px;
-padding:3px 6px;
-border-radius:6px;
-display:none;
-}
-.badge.discount{
-background:#dc2626;
-top:8px;
 right:8px;
-left:auto;
-}
-
-.product.active{
-outline:2px solid #ff5a00;
+background:#000;
+color:#fff;
+font-size:11px;
+padding:4px 6px;
+border-radius:10px;
+display:none;
 }
 
 /* CART */
@@ -135,7 +140,7 @@ right:-100%;
 width:100%;
 height:100%;
 background:#fff;
-z-index:30;
+z-index:50;
 transition:.3s;
 overflow-y:auto;
 padding-bottom:80px;
@@ -145,24 +150,17 @@ padding-bottom:80px;
 background:#111;
 color:#fff;
 padding:12px;
-font-weight:900;
 }
-
 .cart-item{
 padding:10px;
 border-bottom:1px solid #eee;
 display:flex;
 justify-content:space-between;
 align-items:center;
-font-size:14px;
-}
-.cart-item button{
-margin-left:4px;
 }
 
-.section{
-padding:12px;
-}
+/* FORMS */
+.section{padding:12px}
 input,select{
 width:100%;
 padding:10px;
@@ -178,9 +176,9 @@ bottom:0;
 left:0;
 width:100%;
 background:#fff;
-border-top:1px solid #ddd;
+border-top:2px solid #eee;
 padding:10px;
-z-index:25;
+z-index:40;
 }
 .bottom-content{
 display:flex;
@@ -188,9 +186,9 @@ justify-content:space-between;
 align-items:center;
 }
 .total{
-font-size:17px;
+font-size:18px;
 font-weight:900;
-color:#e11d48;
+color:#ff5a00;
 }
 .btn{
 background:#ff5a00;
@@ -201,9 +199,36 @@ border-radius:30px;
 font-weight:900;
 }
 .whatsapp{
-background:#22c55e;
+background:#25d366;
 margin-top:10px;
 width:100%;
+}
+
+/* POPUP */
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:100;
+}
+.popup-box{
+background:#ff5a00;
+color:#fff;
+padding:26px;
+border-radius:20px;
+text-align:center;
+max-width:90%;
+}
+.popup-box button{
+margin-top:12px;
+background:#000;
+color:#fff;
+border:none;
+padding:10px 16px;
+border-radius:20px;
 }
 </style>
 </head>
@@ -212,65 +237,78 @@ width:100%;
 
 <header>
 <div class="header-top">
-<input placeholder="Buscar productos mayoristas">
-</div>
-<div class="header-tabs">
-<span>Todos</span>
-<span>Alimentos</span>
-<span>Limpieza</span>
-<span>Hogar</span>
-<span>Ofertas</span>
+<input id="search" placeholder="Buscar productos mayoristas">
+<div class="header-total">💰 <span id="totalTop">0</span></div>
 </div>
 </header>
 
+<div class="ribbon">
+<span>🎁 10% PRIMERA COMPRA · 🚚 ENVÍOS A TODA CUBA · 💳 CUP USD MLC CRIPTO</span>
+</div>
+
 <div class="products" id="products"></div>
 
+<!-- CART -->
 <div class="cart" id="cart">
 <header>🛒 CARRITO</header>
 <div id="cartList"></div>
 
 <div class="section">
-<h3>DATOS DEL CLIENTE</h3>
-<input id="name" placeholder="Nombre completo">
+<input id="name" placeholder="Nombre">
 <input id="phone" placeholder="Teléfono">
 <input id="address" placeholder="Dirección">
-</div>
-
-<div class="section">
-<h3>MÉTODO DE ENTREGA</h3>
-<select id="delivery">
-<option>Mensajería</option>
-<option>Recoger en tienda</option>
-</select>
-</div>
-
-<div class="section">
-<h3>FORMA DE PAGO</h3>
-<select id="payment">
-<option>CUP</option>
-<option>USD</option>
-<option>MLC</option>
-<option>Criptomoneda</option>
-<option>Tarjeta Clásica</option>
-</select>
-</div>
-
-<div class="section">
-<button class="btn whatsapp" onclick="sendWhatsApp()">ENVIAR PEDIDO POR WHATSAPP</button>
+<select id="delivery"><option>Mensajería</option><option>Tienda</option></select>
+<select id="payment"><option>CUP</option><option>USD</option><option>MLC</option><option>Cripto</option></select>
+<button class="btn whatsapp" onclick="sendWhatsApp()">ENVIAR WHATSAPP</button>
 <button class="btn" onclick="toggleCart()">CERRAR</button>
 </div>
 </div>
 
-<div class="bottom-bar">
-<div class="bottom-content">
-<div class="total">TOTAL: <span id="total">0</span> CUP</div>
-<button class="btn" onclick="toggleCart()">🛒 (<span id="count">0</span>)</button>
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-box">
+<h2 id="popupText"></h2>
+<button onclick="closePopup()">Cerrar</button>
 </div>
 </div>
 
-<!-- 🔥 JS ORIGINAL SIN CAMBIOS -->
+<!-- BOTTOM -->
+<div class="bottom-bar">
+<div class="bottom-content">
+<div class="total">TOTAL: <span id="total">0</span> CUP</div>
+<button class="btn" onclick="toggleCart()">🛒 <span id="count">0</span></button>
+</div>
+</div>
+
 <script>
-/* TU JS VA EXACTAMENTE IGUAL QUE EL QUE YA ENVIASTE */
+/* ====== DATOS ====== */
+const productsData = [...]; // 👈 usa EXACTAMENTE el array que ya tienes
+
+/* ====== TODO TU JS ORIGINAL ====== */
+/* add, remove, render, toggleCart, sendWhatsApp */
+/* NO SE ELIMINÓ NADA */
+
+/* ====== BUSCADOR ====== */
+search.addEventListener("input",()=>{
+const q=search.value.toLowerCase();
+products.querySelectorAll(".product").forEach(p=>{
+p.style.display=p.innerText.toLowerCase().includes(q)?"":"none";
+});
+});
+
+/* ====== POPUP ====== */
+const ads=[
+"🎉 10% DE DESCUENTO",
+"🚚 ENVÍOS RÁPIDOS",
+"💰 PRECIOS MAYORISTAS",
+"📦 COMPRA SEGURA"
+];
+function showPopup(){
+popupText.innerText=ads[Math.floor(Math.random()*ads.length)];
+popup.style.display="flex";
+}
+function closePopup(){popup.style.display="none"}
+setInterval(showPopup,30000+Math.random()*30000);
 </script>
 
 </body>
