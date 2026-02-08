@@ -6,87 +6,226 @@
 <title>LA MAYORISTA EXPRESS</title>
 
 <style>
-:root{--primary:#ff4d00}
+:root{
+  --primary:#ff4d00;
+  --bg:#fafafa;
+  --card:#ffffff;
+  --text:#222;
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system;background:#fafafa}
 
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
 header{
-position:sticky;top:0;z-index:1000;background:#fff;
-padding:12px;box-shadow:0 2px 6px rgba(0,0,0,.1)
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  padding:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.1)
 }
-header h1{margin:0;font-size:18px;color:var(--primary)}
+header h1{
+  margin:0;
+  font-size:18px;
+  color:var(--primary);
+  font-weight:900;
+}
+
 .top{
-display:flex;gap:8px;margin-top:8px
+  display:flex;
+  gap:8px;
+  margin-top:10px
 }
+
 #search,#category{
-flex:1;padding:8px;border-radius:20px;border:1px solid #ccc
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  font-size:14px;
 }
+
 #cartBtn{
-background:var(--primary);color:#fff;border:none;
-padding:8px 14px;border-radius:20px;font-weight:800
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:20px;
+  font-weight:900;
+  font-size:15px;
 }
 
+/* AVISO */
 .notice{
-font-size:11px;padding:6px;text-align:center;
-background:#111;color:#fff
+  font-size:12px;
+  padding:6px;
+  text-align:center;
+  background:#111;
+  color:#fff;
 }
 
+/* PRODUCTOS */
 .products{
-padding:12px;display:grid;
-grid-template-columns:repeat(2,1fr);gap:12px
+  padding:12px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
 .product{
-background:#fff;border-radius:14px;padding:10px;
-box-shadow:0 2px 6px rgba(0,0,0,.08);
-display:flex;flex-direction:column
+  background:var(--card);
+  border-radius:16px;
+  padding:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  text-align:center;
+  animation:fadeUp .3s ease both;
 }
-.product img{height:120px;object-fit:contain}
-.product h3{font-size:14px;margin:4px 0}
-.product p{font-size:12px;margin:2px 0;color:#555}
-.stock{font-size:11px;font-weight:700}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+
+.emoji{
+  font-size:64px;
+  margin-bottom:6px;
+}
+
+.product h3{
+  font-size:14px;
+  margin:4px 0;
+}
+
+.product p{
+  font-size:12px;
+  margin:2px 0;
+  color:#555;
+}
 
 .controls{
-margin-top:auto;display:flex;
-justify-content:space-between;align-items:center
+  margin-top:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
+
 .controls button{
-background:var(--primary);color:#fff;border:none;
-padding:6px 10px;border-radius:8px;font-size:16px;font-weight:800
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:20px;
+  font-weight:900;
 }
 
+.qty{
+  font-size:15px;
+  font-weight:900;
+}
+
+/* BADGE */
+.badge{
+  position:absolute;
+  top:6px;
+  right:6px;
+  background:var(--primary);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  padding:4px 8px;
+  border-radius:12px;
+}
+.product{position:relative}
+
+/* TOAST */
 .toast{
-position:fixed;bottom:20px;left:50%;
-transform:translateX(-50%);
-background:#111;color:#fff;padding:8px 14px;
-border-radius:20px;font-size:13px;display:none
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:20px;
+  font-size:13px;
+  display:none;
+  z-index:3000;
 }
 
+/* CARRITO */
 #cart{
-position:fixed;top:0;right:-100%;
-width:100%;max-width:380px;height:100%;
-background:#fff;z-index:2000;
-transition:.3s;padding:14px;overflow-y:auto
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:100%;
+  max-width:400px;
+  height:100%;
+  background:#fff;
+  z-index:2000;
+  transition:.35s;
+  padding:14px;
+  overflow-y:auto;
 }
 #cart.show{right:0}
 
 .cart-item{
-font-size:13px;display:flex;
-justify-content:space-between;align-items:center;margin-bottom:6px
+  font-size:13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+}
+
+.cart-item button{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  font-weight:900;
 }
 
 input,select{
-width:100%;padding:8px;margin:6px 0;
-border-radius:8px;border:1px solid #ccc
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
 }
 
-.total{font-weight:900;font-size:16px;margin:10px 0}
-.whatsapp{
-background:#25D366;color:#fff;border:none;
-padding:10px;width:100%;border-radius:10px;font-weight:900
+select#currency{
+  font-weight:900;
+  background:#fff5ef;
+  border:2px solid var(--primary);
 }
-.legal{
-font-size:11px;color:#666;margin-top:10px
+
+.total{
+  font-weight:900;
+  font-size:17px;
+  margin:12px 0;
+}
+
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:12px;
+  font-weight:900;
+  font-size:16px;
 }
 </style>
 </head>
@@ -109,11 +248,12 @@ font-size:11px;color:#666;margin-top:10px
 </header>
 
 <div class="notice">
-USD / MLC según tasa informal Cuba (El Toque) · Febrero 2026
+USD / MLC según tasa informal Cuba · Febrero 2026
 </div>
 
 <div class="products" id="products"></div>
 
+<!-- CARRITO -->
 <div id="cart">
 <button onclick="toggleCart()">❌ Cerrar</button>
 
@@ -137,11 +277,6 @@ USD / MLC según tasa informal Cuba (El Toque) · Febrero 2026
 <div class="total" id="total"></div>
 
 <button class="whatsapp" onclick="sendWhatsApp()">📲 Enviar pedido</button>
-
-<div class="legal">
-Precios sujetos a disponibilidad. Pedido confirmado vía WhatsApp.
-No somos pasarela de pago.
-</div>
 </div>
 
 <div class="toast" id="toast">Producto agregado</div>
@@ -150,39 +285,34 @@ No somos pasarela de pago.
 const rates={CUP:1,USD:495,MLC:410,CLASICA:410};
 
 const productsData=[
-["Arroz 50kg",8500,"1 saco","Alimentos","🟢 Disponible"],
-["Azúcar 50kg",7800,"1 saco","Alimentos","🟢 Disponible"],
-["Aceite caja 12L",9200,"1 caja","Alimentos","🟡 Bajo stock"],
-["Leche polvo 25kg",18500,"1 saco","Alimentos","🔴 Últimas"],
-["Harina 50kg",8200,"1 saco","Alimentos","🟢 Disponible"],
-["Frijol negro 50kg",14000,"1 saco","Alimentos","🟢 Disponible"],
-["Pollo 10kg",16000,"1 caja","Alimentos","🔴 Últimas"],
-["Huevos 30u",4200,"1 caja","Alimentos","🟡 Bajo stock"],
-["Pasta 20kg",8900,"1 caja","Alimentos","🟢 Disponible"],
-["Sal 50kg",2600,"1 saco","Alimentos","🟢 Disponible"],
+["🍚","Arroz 50kg",8500,"1 saco","Alimentos"],
+["🍬","Azúcar 50kg",7800,"1 saco","Alimentos"],
+["🛢️","Aceite 12L",9200,"1 caja","Alimentos"],
+["🌾","Harina 50kg",8200,"1 saco","Alimentos"],
+["🫘","Frijol negro 50kg",14000,"1 saco","Alimentos"],
+["🍗","Pollo 10kg",16000,"1 caja","Alimentos"],
+["🥚","Huevos 30u",4200,"1 caja","Alimentos"],
+["🍝","Pasta 20kg",8900,"1 caja","Alimentos"],
+["🧂","Sal 50kg",2600,"1 saco","Alimentos"],
+["🥛","Leche polvo 25kg",18500,"1 saco","Alimentos"],
 
-["Detergente 25kg",9800,"1 saco","Limpieza","🟢 Disponible"],
-["Jabón caja",7600,"1 caja","Limpieza","🟢 Disponible"],
-["Cloro galón",3200,"1 galón","Limpieza","🟡 Bajo stock"],
-["Suavizante",5400,"1 caja","Limpieza","🟢 Disponible"],
-["Desinfectante",6100,"1 caja","Limpieza","🟢 Disponible"],
+["🧼","Detergente 25kg",9800,"1 saco","Limpieza"],
+["🧽","Jabón caja",7600,"1 caja","Limpieza"],
+["🧴","Cloro galón",3200,"1 galón","Limpieza"],
+["🧹","Escoba",1800,"1 unidad","Limpieza"],
+["🧻","Papel sanitario",8800,"1 fardo","Limpieza"],
 
-["Refresco caja",5400,"1 caja","Bebidas","🟢 Disponible"],
-["Cerveza caja",14500,"1 caja","Bebidas","🔴 Últimas"],
-["Agua 1.5L",4200,"1 caja","Bebidas","🟢 Disponible"],
-["Malta caja",6900,"1 caja","Bebidas","🟡 Bajo stock"],
-["Jugo caja",7200,"1 caja","Bebidas","🟢 Disponible"],
+["🥤","Refresco caja",5400,"1 caja","Bebidas"],
+["🍺","Cerveza caja",14500,"1 caja","Bebidas"],
+["💧","Agua 1.5L",4200,"1 caja","Bebidas"],
+["🥭","Jugo caja",7200,"1 caja","Bebidas"],
+["🍫","Malta caja",6900,"1 caja","Bebidas"],
 
-["Galletas caja",6100,"1 caja","Otros","🟢 Disponible"],
-["Cereal caja",9900,"1 caja","Otros","🟡 Bajo stock"],
-["Mayonesa",7200,"1 caja","Otros","🟢 Disponible"],
-["Ketchup",6900,"1 caja","Otros","🟢 Disponible"],
-["Vinagre",3200,"1 caja","Otros","🟢 Disponible"],
-["Soya 25kg",8300,"1 saco","Otros","🟢 Disponible"],
-["Queso 10kg",14500,"1 caja","Otros","🔴 Últimas"],
-["Mantequilla",13500,"1 caja","Otros","🟡 Bajo stock"],
-["Carne molida",17800,"1 caja","Otros","🔴 Últimas"],
-["Leche líquida",8800,"1 caja","Otros","🟢 Disponible"]
+["🍪","Galletas caja",6100,"1 caja","Otros"],
+["🥣","Cereal caja",9900,"1 caja","Otros"],
+["🥫","Mayonesa",7200,"1 caja","Otros"],
+["🍅","Ketchup",6900,"1 caja","Otros"],
+["🥩","Carne molida",17800,"1 caja","Otros"]
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart"))||{};
@@ -191,25 +321,25 @@ const products=document.getElementById("products");
 function render(){
 products.innerHTML="";
 const q=search.value.toLowerCase();
-const cur=currency.value;
 const cat=category.value;
+const cur=currency.value;
 
 productsData
-.filter(p=>p[0].toLowerCase().includes(q))
-.filter(p=>cat==="Todas"||p[3]===cat)
+.filter(p=>p[1].toLowerCase().includes(q))
+.filter(p=>cat==="Todas"||p[4]===cat)
 .forEach(p=>{
-const qty=cart[p[0]]?.qty||0;
+const qty=cart[p[1]]?.qty||0;
 products.innerHTML+=`
 <div class="product">
-<img src="https://via.placeholder.com/300?text=${encodeURIComponent(p[0])}">
-<h3>${p[0]}</h3>
-<p>Mínimo: ${p[2]}</p>
-<p>${(p[1]/rates[cur]).toFixed(2)} ${cur}</p>
-<div class="stock">${p[4]}</div>
+${qty>0?`<div class="badge">${qty}</div>`:""}
+<div class="emoji">${p[0]}</div>
+<h3>${p[1]}</h3>
+<p>Mínimo: ${p[3]}</p>
+<p><b>${(p[2]/rates[cur]).toFixed(2)} ${cur}</b></p>
 <div class="controls">
-<button onclick="change('${p[0]}',${p[1]},-1)">−</button>
-<div>${qty}</div>
-<button onclick="change('${p[0]}',${p[1]},1)">+</button>
+<button onclick="change('${p[1]}',${p[2]},-1)">−</button>
+<div class="qty">${qty}</div>
+<button onclick="change('${p[1]}',${p[2]},1)">+</button>
 </div>
 </div>`;
 });
@@ -250,7 +380,7 @@ function toggleCart(){cart.classList.toggle("show")}
 function toast(){
 const t=document.getElementById("toast");
 t.style.display="block";
-setTimeout(()=>t.style.display="none",800);
+setTimeout(()=>t.style.display="none",900);
 }
 
 function sendWhatsApp(){
@@ -267,4 +397,4 @@ render();
 </script>
 
 </body>
-                                         </html>
+</html>
