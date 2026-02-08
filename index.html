@@ -24,40 +24,21 @@ position:sticky;
 top:0;
 z-index:20;
 }
-header h1{
-margin:0;
-font-size:22px;
-font-weight:900;
-}
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:10px;
-}
-.total-header{
-font-size:18px;
-font-weight:800;
-}
+header h1{margin:0;font-size:22px;font-weight:900}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.total-header{font-size:18px;font-weight:800}
 .cart-btn{
-background:#fff;
-color:#ff5a00;
-border:none;
-padding:10px 14px;
-border-radius:30px;
-font-size:16px;
-font-weight:800;
+background:#fff;color:#ff5a00;border:none;
+padding:10px 14px;border-radius:30px;
+font-size:16px;font-weight:800;
 }
 
-/* INFO RIBBON */
+/* RIBBON */
 .ribbon{
-background:#111;
-color:#fff;
-padding:8px;
-font-size:14px;
-text-align:center;
-animation:scroll 12s linear infinite;
+background:#111;color:#fff;padding:8px;
+font-size:14px;text-align:center;
 white-space:nowrap;
+animation:scroll 12s linear infinite;
 }
 @keyframes scroll{
 0%{transform:translateX(100%)}
@@ -67,157 +48,97 @@ white-space:nowrap;
 /* SEARCH */
 .search{margin-top:12px}
 .search input{
-width:100%;
-padding:14px;
-border-radius:14px;
-border:none;
-font-size:16px;
+width:100%;padding:14px;border-radius:14px;
+border:none;font-size:16px;
 }
 
 /* BANNER */
 .banner{
-margin:14px;
-padding:20px;
-border-radius:20px;
+margin:14px;padding:20px;border-radius:20px;
 background:linear-gradient(90deg,#ff7a18,#ffb347);
-color:white;
-font-size:20px;
-font-weight:900;
-animation:fadeIn .6s;
+color:white;font-size:20px;font-weight:900;
 }
 
 /* PRODUCTS */
 .products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-padding:14px;
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:14px;padding:14px;
 }
 .product{
-background:white;
-border-radius:20px;
-padding:14px;
-box-shadow:0 6px 14px rgba(0,0,0,.12);
-display:flex;
-flex-direction:column;
+background:white;border-radius:20px;
+padding:14px;box-shadow:0 6px 14px rgba(0,0,0,.12);
+display:flex;flex-direction:column;
 animation:slideUp .35s;
 }
 .product h3{font-size:16px;margin:8px 0}
-.price{
-font-size:20px;
-font-weight:900;
-color:#ff5a00;
-}
-.old{
-font-size:13px;
-color:#888;
-text-decoration:line-through;
-}
-.controls{
-display:flex;
-gap:8px;
-margin-top:10px;
-}
+.price{font-size:20px;font-weight:900;color:#ff5a00}
+.old{font-size:13px;color:#888;text-decoration:line-through}
+.controls{display:flex;gap:8px;margin-top:10px}
 .controls button{
-flex:1;
-padding:10px;
-font-size:18px;
-border:none;
-border-radius:12px;
-background:#ff5a00;
-color:white;
-font-weight:900;
+flex:1;padding:10px;font-size:18px;
+border:none;border-radius:12px;
+background:#ff5a00;color:white;font-weight:900;
 }
 
 /* CART */
 .cart{
-position:fixed;
-top:0;left:0;
+position:fixed;top:0;left:0;
 width:100%;height:100%;
-background:white;
-z-index:999;
-padding:16px;
-overflow:auto;
+background:white;z-index:999;
+padding:16px;overflow:auto;
 transform:translateY(100%);
 transition:.35s;
 }
 .cart.active{transform:translateY(0)}
-
 .cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 0;
+display:flex;justify-content:space-between;
+align-items:center;padding:12px 0;
 border-bottom:1px solid #eee;
 }
+.cart-item button{
+margin-left:6px;padding:6px 10px;
+border:none;border-radius:10px;
+background:#ff5a00;color:white;
+}
 
+/* CHECKOUT */
 .checkout input,select,button{
-width:100%;
-padding:14px;
-margin-bottom:12px;
-border-radius:14px;
-font-size:16px;
+width:100%;padding:14px;margin-bottom:12px;
+border-radius:14px;font-size:16px;
 }
 .checkout button{
-background:#ff5a00;
-border:none;
-color:white;
-font-weight:900;
+background:#ff5a00;border:none;
+color:white;font-weight:900;
 }
 
 /* SUPPORT */
 .support{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:16px 20px;
-border-radius:40px;
-font-weight:900;
-text-decoration:none;
-box-shadow:0 6px 14px rgba(0,0,0,.35);
+position:fixed;bottom:20px;right:20px;
+background:#25D366;color:white;
+padding:16px 20px;border-radius:40px;
+font-weight:900;text-decoration:none;
 }
 
-/* POPUP ADS */
+/* POPUP */
 .popup{
-position:fixed;
-top:0;left:0;
+position:fixed;top:0;left:0;
 width:100%;height:100%;
 background:rgba(0,0,0,.92);
-color:white;
-display:none;
-align-items:center;
-justify-content:center;
-z-index:2000;
-animation:fadeIn .4s;
+display:none;align-items:center;
+justify-content:center;z-index:2000;
 }
 .popup-content{
-background:#ff5a00;
-padding:30px;
-border-radius:20px;
-max-width:90%;
-text-align:center;
-animation:scaleIn .4s;
+background:#ff5a00;padding:30px;
+border-radius:20px;text-align:center;
 }
-.popup-content h2{margin-top:0}
 .popup-close{
-position:absolute;
-top:20px;
-right:20px;
-font-size:22px;
-background:#000;
-border:none;
-color:white;
-padding:10px 14px;
-border-radius:50%;
-display:none;
+position:absolute;top:20px;right:20px;
+background:#000;color:white;
+border:none;border-radius:50%;
+padding:10px 14px;display:none;
 }
 
-/* ANIMATIONS */
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{opacity:1}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{transform:scale(.8)}to{transform:scale(1)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
 </style>
 </head>
 
@@ -233,12 +154,10 @@ display:none;
 </header>
 
 <div class="ribbon">
-🎁 10% DE DESCUENTO EN TU PRIMERA COMPRA · ENVÍOS A TODA CUBA · PAGO EN CUP USD MLC CRIPTO
+🎁 10% PRIMERA COMPRA · ENVÍOS A TODA CUBA · CUP · USD · MLC · CRIPTO
 </div>
 
-<div class="banner">
-🔥 Precios mayoristas reales para Cuba
-</div>
+<div class="banner">🔥 Precios mayoristas reales para Cuba</div>
 
 <div class="products" id="products"></div>
 
@@ -255,8 +174,9 @@ display:none;
 <input id="direccion" placeholder="Dirección">
 
 <select id="pago">
-<option>CUP</option><option>USD</option><option>MLC</option>
-<option>CRIPTO</option><option>TARJETA CLÁSICA</option>
+<option>CUP</option><option>USD</option>
+<option>MLC</option><option>CRIPTO</option>
+<option>TARJETA CLÁSICA</option>
 </select>
 
 <select id="entrega">
@@ -277,29 +197,117 @@ display:none;
 </div>
 
 <script>
+/* PRODUCTOS (30) */
+const productsData=[
+{n:"Arroz 50kg",p:21560,o:30800},
+{n:"Azúcar 50kg",p:23100,o:33000},
+{n:"Aceite 12x1L",p:10080,o:14400},
+{n:"Leche Polvo 25kg",p:53900,o:77000},
+{n:"Frijol Negro 50kg",p:21560,o:30800},
+{n:"Frijol Colorado 50kg",p:22400,o:32000},
+{n:"Pasta Caja",p:4900,o:7000},
+{n:"Harina Trigo 50kg",p:14800,o:21000},
+{n:"Maíz 50kg",p:11200,o:16000},
+{n:"Sal 25kg",p:3900,o:5600},
+{n:"Azúcar Blanca 25kg",p:11800,o:17000},
+{n:"Café 10kg",p:38500,o:55000},
+{n:"Pollo 10kg",p:5390,o:7700},
+{n:"Picadillo 10kg",p:9200,o:13200},
+{n:"Aceite 6x1L",p:5200,o:7400},
+{n:"Leche Líquida Caja",p:6900,o:9800},
+{n:"Galletas Caja",p:4100,o:5900},
+{n:"Refresco Caja",p:4800,o:6800},
+{n:"Detergente Caja",p:8400,o:12000},
+{n:"Jabón Caja",p:7700,o:11000},
+{n:"Cloro Caja",p:3600,o:5200},
+{n:"Papel Higiénico Fardo",p:6200,o:8900},
+{n:"Toallas Sanitarias Caja",p:7400,o:10500},
+{n:"Pañales Fardo",p:18500,o:26500},
+{n:"Salsa Tomate Caja",p:5600,o:8000},
+{n:"Mayonesa Caja",p:6900,o:9900},
+{n:"Atún Caja",p:16800,o:24000},
+{n:"Sardinas Caja",p:14200,o:20300},
+{n:"Arroz 25kg",p:11200,o:16000},
+{n:"Azúcar Prieta 50kg",p:19800,o:28300}
+];
+
+/* CARRITO */
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+const products=document.getElementById("products");
+
+productsData.forEach((x,i)=>{
+products.innerHTML+=`
+<div class="product">
+<h3>${x.n}</h3>
+<div class="price">${x.p} CUP</div>
+<div class="old">${x.o} CUP</div>
+<div class="controls">
+<button onclick="add(${i})">+</button>
+<button onclick="remove(${i})">-</button>
+</div>
+</div>`;
+});
+
+function add(i){
+let it=cart.find(x=>x.n===productsData[i].n);
+if(it)it.c++; else cart.push({...productsData[i],c:1});
+save();
+}
+function remove(i){
+let it=cart.find(x=>x.n===productsData[i].n);
+if(it){it.c--;if(it.c<=0)cart=cart.filter(y=>y.n!==it.n)}
+save();
+}
+function save(){
+localStorage.setItem("cart",JSON.stringify(cart));
+render();
+}
+function render(){
+let html="",total=0,count=0;
+cart.forEach(x=>{
+html+=`
+<div class="cart-item">
+${x.n} x${x.c}
+<div>
+<button onclick="addBy('${x.n}')">+</button>
+<button onclick="removeBy('${x.n}')">-</button>
+</div>
+</div>`;
+total+=x.p*x.c; count+=x.c;
+});
+document.getElementById("cartList").innerHTML=html||"<p>Carrito vacío</p>";
+document.getElementById("totalCart").innerText=total;
+document.getElementById("totalHeader").innerText=total;
+document.getElementById("count").innerText=count;
+}
+function addBy(n){add(productsData.findIndex(x=>x.n===n))}
+function removeBy(n){remove(productsData.findIndex(x=>x.n===n))}
+function toggleCart(){document.getElementById("cart").classList.toggle("active")}
+
+function enviarWhatsApp(){
+let m=`LA MAYORISTA EXPRESS%0ACliente: ${nombre.value}%0ATel: ${telefono.value}%0ADir: ${direccion.value}%0A%0A`;
+cart.forEach(x=>m+=`${x.n} x${x.c}%0A`);
+m+=`%0ATOTAL: ${totalCart.innerText} CUP%0APago: ${pago.value}%0AEntrega: ${entrega.value}`;
+window.open(`https://wa.me/53420021?text=${m}`);
+}
+render();
+
+/* POPUPS */
 const anuncios=[
 "🎉 10% de descuento en tu primera compra",
 "🚚 Entregas rápidas en toda Cuba",
 "💰 Precios 30% más bajos que el mercado",
 "📦 Compra mayorista segura y confiable"
 ];
-
 function showPopup(){
-const p=document.getElementById("popup");
-const t=document.getElementById("popupText");
-const c=document.getElementById("closePopup");
-t.innerHTML="<h2>"+anuncios[Math.floor(Math.random()*anuncios.length)]+"</h2>";
-p.style.display="flex";
-c.style.display="none";
-setTimeout(()=>c.style.display="block",3000);
+popupText.innerHTML="<h2>"+anuncios[Math.floor(Math.random()*anuncios.length)]+"</h2>";
+popup.style.display="flex";
+closePopup.style.display="none";
+setTimeout(()=>closePopup.style.display="block",3000);
 }
-
-function closePopup(){
-document.getElementById("popup").style.display="none";
-}
-
+function closePopup(){popup.style.display="none"}
 setInterval(showPopup,30000+Math.random()*30000);
 </script>
 
 </body>
-  </html>
+</html>
