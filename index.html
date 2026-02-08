@@ -9,238 +9,256 @@
 *{box-sizing:border-box}
 body{
 margin:0;
-font-family:system-ui,-apple-system,Segoe UI,Roboto;
+font-family:system-ui,-apple-system,BlinkMacSystemFont;
 background:#f5f5f5;
-color:#222;
-overflow-x:hidden;
+color:#111;
+padding-bottom:140px;
 }
-
-/* HEADER */
 header{
 background:#ff5a00;
 color:#fff;
 padding:14px;
+font-size:22px;
+font-weight:900;
+text-align:center;
 position:sticky;
 top:0;
 z-index:20;
 }
-header h1{margin:0;font-size:22px;font-weight:900}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.total-header{font-size:18px;font-weight:800}
-.cart-btn{
-background:#fff;color:#ff5a00;border:none;
-padding:10px 14px;border-radius:30px;
-font-size:16px;font-weight:800;
-}
-
-/* RIBBON */
-.ribbon{
-background:#111;color:#fff;padding:8px;
-font-size:14px;text-align:center;
-white-space:nowrap;
-animation:scroll 12s linear infinite;
-}
-@keyframes scroll{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
-}
-
-/* SEARCH */
-.search{margin-top:12px}
-.search input{
-width:100%;padding:14px;border-radius:14px;
-border:none;font-size:16px;
-}
-
-/* BANNER */
-.banner{
-margin:14px;padding:20px;border-radius:20px;
-background:linear-gradient(90deg,#ff7a18,#ffb347);
-color:white;font-size:20px;font-weight:900;
-}
-
-/* PRODUCTS */
 .products{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:14px;padding:14px;
+display:flex;
+overflow-x:auto;
+gap:12px;
+padding:12px;
+scroll-snap-type:x mandatory;
 }
 .product{
-background:white;border-radius:20px;
-padding:14px;box-shadow:0 6px 14px rgba(0,0,0,.12);
-display:flex;flex-direction:column;
-animation:slideUp .35s;
+background:#fff;
+border-radius:14px;
+padding:12px;
+min-width:22%;
+scroll-snap-align:start;
+position:relative;
+box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
-.product h3{font-size:16px;margin:8px 0}
-.price{font-size:20px;font-weight:900;color:#ff5a00}
-.old{font-size:13px;color:#888;text-decoration:line-through}
-.controls{display:flex;gap:8px;margin-top:10px}
+.product h3{
+font-size:14px;
+margin:4px 0;
+}
+.price{
+font-weight:900;
+color:#ff5a00;
+}
+.old{
+font-size:12px;
+text-decoration:line-through;
+color:#888;
+}
+.min{
+font-size:11px;
+color:#444;
+margin-top:4px;
+}
+.controls{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
 .controls button{
-flex:1;padding:10px;font-size:18px;
-border:none;border-radius:12px;
-background:#ff5a00;color:white;font-weight:900;
+width:48%;
+border:none;
+padding:8px;
+border-radius:10px;
+font-size:18px;
+font-weight:900;
+background:#ff5a00;
+color:#fff;
 }
-
-/* CART */
+.badge{
+position:absolute;
+top:8px;
+right:8px;
+background:#000;
+color:#fff;
+font-size:11px;
+padding:4px 6px;
+border-radius:10px;
+display:none;
+}
+.product.active{
+outline:3px solid #ff5a00;
+animation:pulse .3s;
+}
+@keyframes pulse{
+50%{transform:scale(1.03)}
+}
 .cart{
-position:fixed;top:0;left:0;
-width:100%;height:100%;
-background:white;z-index:999;
-padding:16px;overflow:auto;
-transform:translateY(100%);
-transition:.35s;
+position:fixed;
+top:0;
+right:-100%;
+width:100%;
+height:100%;
+background:#fff;
+z-index:30;
+transition:.3s;
+overflow-y:auto;
+padding-bottom:80px;
 }
-.cart.active{transform:translateY(0)}
+.cart.show{right:0}
+.cart header{
+background:#111;
+color:#fff;
+}
 .cart-item{
-display:flex;justify-content:space-between;
-align-items:center;padding:12px 0;
+padding:10px;
 border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 .cart-item button{
-margin-left:6px;padding:6px 10px;
-border:none;border-radius:10px;
-background:#ff5a00;color:white;
+margin-left:4px;
 }
-
-/* CHECKOUT */
-.checkout input,select,button{
-width:100%;padding:14px;margin-bottom:12px;
-border-radius:14px;font-size:16px;
+.section{
+padding:12px;
 }
-.checkout button{
-background:#ff5a00;border:none;
-color:white;font-weight:900;
+input,select{
+width:100%;
+padding:10px;
+margin-top:6px;
+border-radius:10px;
+border:1px solid #ccc;
 }
-
-/* SUPPORT */
-.support{
-position:fixed;bottom:20px;right:20px;
-background:#25D366;color:white;
-padding:16px 20px;border-radius:40px;
-font-weight:900;text-decoration:none;
+.bottom-bar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+border-top:2px solid #eee;
+padding:10px;
+z-index:25;
 }
-
-/* POPUP */
-.popup{
-position:fixed;top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,.92);
-display:none;align-items:center;
-justify-content:center;z-index:2000;
+.bottom-content{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
-.popup-content{
-background:#ff5a00;padding:30px;
-border-radius:20px;text-align:center;
+.total{
+font-size:18px;
+font-weight:900;
+color:#ff5a00;
 }
-.popup-close{
-position:absolute;top:20px;right:20px;
-background:#000;color:white;
-border:none;border-radius:50%;
-padding:10px 14px;display:none;
+.btn{
+background:#ff5a00;
+color:#fff;
+border:none;
+padding:12px 16px;
+border-radius:30px;
+font-weight:900;
 }
-
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+.whatsapp{
+background:#25d366;
+margin-top:10px;
+width:100%;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>LA MAYORISTA EXPRESS</h1>
-<div class="topbar">
-<div class="total-header">TOTAL: <span id="totalHeader">0</span> CUP</div>
-<button class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></button>
-</div>
-<div class="search"><input placeholder="Buscar productos mayoristas"></div>
-</header>
-
-<div class="ribbon">
-🎁 10% PRIMERA COMPRA · ENVÍOS A TODA CUBA · CUP · USD · MLC · CRIPTO
-</div>
-
-<div class="banner">🔥 Precios mayoristas reales para Cuba</div>
+<header>LA MAYORISTA EXPRESS</header>
 
 <div class="products" id="products"></div>
 
-<!-- CART -->
 <div class="cart" id="cart">
-<button onclick="toggleCart()">❌ Cerrar</button>
-<h2>🧾 Carrito</h2>
+<header>🛒 CARRITO</header>
 <div id="cartList"></div>
-<h3>TOTAL: <span id="totalCart">0</span> CUP</h3>
 
-<div class="checkout">
-<input id="nombre" placeholder="Nombre">
-<input id="telefono" placeholder="Teléfono">
-<input id="direccion" placeholder="Dirección">
+<div class="section">
+<h3>DATOS DEL CLIENTE</h3>
+<input id="name" placeholder="Nombre completo">
+<input id="phone" placeholder="Teléfono">
+<input id="address" placeholder="Dirección">
+</div>
 
-<select id="pago">
-<option>CUP</option><option>USD</option>
-<option>MLC</option><option>CRIPTO</option>
-<option>TARJETA CLÁSICA</option>
+<div class="section">
+<h3>MÉTODO DE ENTREGA</h3>
+<select id="delivery">
+<option>Mensajería</option>
+<option>Recoger en tienda</option>
 </select>
+</div>
 
-<select id="entrega">
-<option>MENSAJERÍA</option>
-<option>RECOGER EN TIENDA</option>
+<div class="section">
+<h3>FORMA DE PAGO</h3>
+<select id="payment">
+<option>CUP</option>
+<option>USD</option>
+<option>MLC</option>
+<option>Criptomoneda</option>
+<option>Tarjeta Clásica</option>
 </select>
+</div>
 
-<button onclick="enviarWhatsApp()">FINALIZAR PEDIDO</button>
+<div class="section">
+<button class="btn whatsapp" onclick="sendWhatsApp()">ENVIAR PEDIDO POR WHATSAPP</button>
+<button class="btn" onclick="toggleCart()">CERRAR</button>
 </div>
 </div>
 
-<a class="support" href="https://wa.me/53420021">💬 SOPORTE</a>
-
-<!-- POPUP -->
-<div class="popup" id="popup">
-<button class="popup-close" id="closePopup" onclick="closePopup()">❌</button>
-<div class="popup-content" id="popupText"></div>
+<div class="bottom-bar">
+<div class="bottom-content">
+<div class="total">TOTAL: <span id="total">0</span> CUP</div>
+<button class="btn" onclick="toggleCart()">🛒 (<span id="count">0</span>)</button>
+</div>
 </div>
 
 <script>
-/* PRODUCTOS (30) */
 const productsData=[
-{n:"Arroz 50kg",p:21560,o:30800},
-{n:"Azúcar 50kg",p:23100,o:33000},
-{n:"Aceite 12x1L",p:10080,o:14400},
-{n:"Leche Polvo 25kg",p:53900,o:77000},
-{n:"Frijol Negro 50kg",p:21560,o:30800},
-{n:"Frijol Colorado 50kg",p:22400,o:32000},
-{n:"Pasta Caja",p:4900,o:7000},
-{n:"Harina Trigo 50kg",p:14800,o:21000},
-{n:"Maíz 50kg",p:11200,o:16000},
-{n:"Sal 25kg",p:3900,o:5600},
-{n:"Azúcar Blanca 25kg",p:11800,o:17000},
-{n:"Café 10kg",p:38500,o:55000},
-{n:"Pollo 10kg",p:5390,o:7700},
-{n:"Picadillo 10kg",p:9200,o:13200},
-{n:"Aceite 6x1L",p:5200,o:7400},
-{n:"Leche Líquida Caja",p:6900,o:9800},
-{n:"Galletas Caja",p:4100,o:5900},
-{n:"Refresco Caja",p:4800,o:6800},
-{n:"Detergente Caja",p:8400,o:12000},
-{n:"Jabón Caja",p:7700,o:11000},
-{n:"Cloro Caja",p:3600,o:5200},
-{n:"Papel Higiénico Fardo",p:6200,o:8900},
-{n:"Toallas Sanitarias Caja",p:7400,o:10500},
-{n:"Pañales Fardo",p:18500,o:26500},
-{n:"Salsa Tomate Caja",p:5600,o:8000},
-{n:"Mayonesa Caja",p:6900,o:9900},
-{n:"Atún Caja",p:16800,o:24000},
-{n:"Sardinas Caja",p:14200,o:20300},
-{n:"Arroz 25kg",p:11200,o:16000},
-{n:"Azúcar Prieta 50kg",p:19800,o:28300}
+["Arroz 50kg",12000,17000,"1 saco"],
+["Azúcar 50kg",10000,14300,"1 saco"],
+["Aceite 1L x12",8500,12100,"1 caja"],
+["Leche en polvo 25kg",22000,31400,"1 saco"],
+["Pollo 10kg",9500,13600,"1 caja"],
+["Harina 25kg",7800,11100,"1 saco"],
+["Frijol negro 50kg",18500,26400,"1 saco"],
+["Arvejas 50kg",16000,22800,"1 saco"],
+["Sal 25kg",4200,6000,"1 saco"],
+["Café 10kg",21000,30000,"1 caja"],
+["Pasta 20kg",6800,9700,"1 caja"],
+["Soya 50kg",14000,20000,"1 saco"],
+["Aceite 5L x4",16000,22800,"1 caja"],
+["Galletas 10kg",5500,7850,"1 caja"],
+["Atún 48 latas",13000,18500,"1 caja"],
+["Sardinas 50 latas",11000,15700,"1 caja"],
+["Levadura 10kg",9800,14000,"1 caja"],
+["Condimento 5kg",6200,8850,"1 caja"],
+["Mayonesa 5kg",9000,12800,"1 caja"],
+["Ketchup 5kg",8500,12100,"1 caja"],
+["Jabón 25kg",7200,10300,"1 saco"],
+["Detergente 20kg",8800,12500,"1 saco"],
+["Papel higiénico 48u",10500,15000,"1 fardo"],
+["Cloro 20L",4500,6400,"1 bidón"],
+["Arroz 25kg",6500,9300,"1 saco"],
+["Azúcar 25kg",5200,7400,"1 saco"],
+["Aceite 1L x6",4300,6150,"1 caja"],
+["Harina 10kg",3400,4850,"1 saco"],
+["Frijol colorado 50kg",19000,27100,"1 saco"],
+["Maíz 50kg",9000,12800,"1 saco"]
 ];
 
-/* CARRITO */
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
-const products=document.getElementById("products");
 
+const products=document.getElementById("products");
 productsData.forEach((x,i)=>{
 products.innerHTML+=`
-<div class="product">
-<h3>${x.n}</h3>
-<div class="price">${x.p} CUP</div>
-<div class="old">${x.o} CUP</div>
+<div class="product" id="prod-${i}">
+<span class="badge"></span>
+<h3>${x[0]}</h3>
+<div class="price">${x[1]} CUP</div>
+<div class="old">${x[2]} CUP</div>
+<div class="min">Mínimo: ${x[3]}</div>
 <div class="controls">
 <button onclick="add(${i})">+</button>
 <button onclick="remove(${i})">-</button>
@@ -249,13 +267,18 @@ products.innerHTML+=`
 });
 
 function add(i){
-let it=cart.find(x=>x.n===productsData[i].n);
-if(it)it.c++; else cart.push({...productsData[i],c:1});
+let p=productsData[i];
+let it=cart.find(x=>x.n===p[0]);
+if(it) it.c++;
+else cart.push({n:p[0],p:p[1],c:1});
 save();
 }
 function remove(i){
-let it=cart.find(x=>x.n===productsData[i].n);
-if(it){it.c--;if(it.c<=0)cart=cart.filter(y=>y.n!==it.n)}
+let p=productsData[i];
+let it=cart.find(x=>x.n===p[0]);
+if(!it) return;
+it.c--;
+if(it.c<=0) cart=cart.filter(x=>x.n!==p[0]);
 save();
 }
 function save(){
@@ -263,50 +286,51 @@ localStorage.setItem("cart",JSON.stringify(cart));
 render();
 }
 function render(){
-let html="",total=0,count=0;
+let total=0,count=0,html="";
 cart.forEach(x=>{
+total+=x.p*x.c;
+count+=x.c;
 html+=`
 <div class="cart-item">
-${x.n} x${x.c}
+${x.n} x${x.c} = ${x.p*x.c} CUP
 <div>
 <button onclick="addBy('${x.n}')">+</button>
 <button onclick="removeBy('${x.n}')">-</button>
 </div>
 </div>`;
-total+=x.p*x.c; count+=x.c;
 });
-document.getElementById("cartList").innerHTML=html||"<p>Carrito vacío</p>";
-document.getElementById("totalCart").innerText=total;
-document.getElementById("totalHeader").innerText=total;
+document.getElementById("cartList").innerHTML=html||"<p style='padding:12px'>Carrito vacío</p>";
+document.getElementById("total").innerText=total;
 document.getElementById("count").innerText=count;
-}
-function addBy(n){add(productsData.findIndex(x=>x.n===n))}
-function removeBy(n){remove(productsData.findIndex(x=>x.n===n))}
-function toggleCart(){document.getElementById("cart").classList.toggle("active")}
 
-function enviarWhatsApp(){
-let m=`LA MAYORISTA EXPRESS%0ACliente: ${nombre.value}%0ATel: ${telefono.value}%0ADir: ${direccion.value}%0A%0A`;
-cart.forEach(x=>m+=`${x.n} x${x.c}%0A`);
-m+=`%0ATOTAL: ${totalCart.innerText} CUP%0APago: ${pago.value}%0AEntrega: ${entrega.value}`;
-window.open(`https://wa.me/53420021?text=${m}`);
+productsData.forEach((p,i)=>{
+let card=document.getElementById("prod-"+i);
+let badge=card.querySelector(".badge");
+let it=cart.find(x=>x.n===p[0]);
+if(it){
+badge.style.display="block";
+badge.innerText=`x${it.c}`;
+card.classList.add("active");
+}else{
+badge.style.display="none";
+card.classList.remove("active");
+}
+});
+}
+function addBy(n){add(productsData.findIndex(x=>x[0]===n))}
+function removeBy(n){remove(productsData.findIndex(x=>x[0]===n))}
+function toggleCart(){
+document.getElementById("cart").classList.toggle("show");
+}
+function sendWhatsApp(){
+let msg=`PEDIDO LA MAYORISTA EXPRESS\n\n`;
+cart.forEach(x=>msg+=`${x.n} x${x.c}\n`);
+msg+=`\nTOTAL: ${document.getElementById("total").innerText} CUP\n`;
+msg+=`Cliente: ${name.value}\nTel: ${phone.value}\nDir: ${address.value}\n`;
+msg+=`Entrega: ${delivery.value}\nPago: ${payment.value}`;
+window.open(`https://wa.me/5353420021?text=${encodeURIComponent(msg)}`);
 }
 render();
-
-/* POPUPS */
-const anuncios=[
-"🎉 10% de descuento en tu primera compra",
-"🚚 Entregas rápidas en toda Cuba",
-"💰 Precios 30% más bajos que el mercado",
-"📦 Compra mayorista segura y confiable"
-];
-function showPopup(){
-popupText.innerHTML="<h2>"+anuncios[Math.floor(Math.random()*anuncios.length)]+"</h2>";
-popup.style.display="flex";
-closePopup.style.display="none";
-setTimeout(()=>closePopup.style.display="block",3000);
-}
-function closePopup(){popup.style.display="none"}
-setInterval(showPopup,30000+Math.random()*30000);
 </script>
 
 </body>
