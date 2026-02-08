@@ -6,140 +6,87 @@
 <title>LA MAYORISTA EXPRESS</title>
 
 <style>
-:root{
---primary:#ff4d00;
---dark:#111;
---light:#fff;
---gray:#f4f4f4;
-}
-
+:root{--primary:#ff4d00}
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:system-ui, -apple-system, BlinkMacSystemFont;
-background:#fafafa;
-color:#111;
-}
+body{margin:0;font-family:system-ui,-apple-system;background:#fafafa}
 
 header{
-position:sticky;
-top:0;
-z-index:1000;
-background:#fff;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px;
-box-shadow:0 2px 6px rgba(0,0,0,.1);
+position:sticky;top:0;z-index:1000;background:#fff;
+padding:12px;box-shadow:0 2px 6px rgba(0,0,0,.1)
 }
-
-header h1{
-font-size:18px;
-margin:0;
-color:var(--primary);
-font-weight:800;
+header h1{margin:0;font-size:18px;color:var(--primary)}
+.top{
+display:flex;gap:8px;margin-top:8px
 }
-
+#search,#category{
+flex:1;padding:8px;border-radius:20px;border:1px solid #ccc
+}
 #cartBtn{
-background:var(--primary);
-color:#fff;
-border:none;
-padding:10px 14px;
-border-radius:20px;
-font-weight:700;
+background:var(--primary);color:#fff;border:none;
+padding:8px 14px;border-radius:20px;font-weight:800
 }
 
-.container{
-padding:12px;
+.notice{
+font-size:11px;padding:6px;text-align:center;
+background:#111;color:#fff
 }
 
 .products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
+padding:12px;display:grid;
+grid-template-columns:repeat(2,1fr);gap:12px
 }
 
 .product{
-background:#fff;
-border-radius:14px;
-padding:10px;
+background:#fff;border-radius:14px;padding:10px;
 box-shadow:0 2px 6px rgba(0,0,0,.08);
-display:flex;
-flex-direction:column;
+display:flex;flex-direction:column
+}
+.product img{height:120px;object-fit:contain}
+.product h3{font-size:14px;margin:4px 0}
+.product p{font-size:12px;margin:2px 0;color:#555}
+.stock{font-size:11px;font-weight:700}
+
+.controls{
+margin-top:auto;display:flex;
+justify-content:space-between;align-items:center
+}
+.controls button{
+background:var(--primary);color:#fff;border:none;
+padding:6px 10px;border-radius:8px;font-size:16px;font-weight:800
 }
 
-.product img{
-width:100%;
-height:120px;
-object-fit:contain;
-margin-bottom:6px;
-}
-
-.product h3{
-font-size:14px;
-margin:4px 0;
-}
-
-.product p{
-font-size:12px;
-margin:2px 0;
-color:#555;
-}
-
-.product button{
-margin-top:auto;
-background:var(--primary);
-border:none;
-color:#fff;
-padding:8px;
-border-radius:10px;
-font-weight:700;
+.toast{
+position:fixed;bottom:20px;left:50%;
+transform:translateX(-50%);
+background:#111;color:#fff;padding:8px 14px;
+border-radius:20px;font-size:13px;display:none
 }
 
 #cart{
-position:fixed;
-top:0;
-right:-100%;
-width:100%;
-max-width:380px;
-height:100%;
-background:#fff;
-z-index:2000;
-box-shadow:-2px 0 10px rgba(0,0,0,.2);
-padding:14px;
-transition:.3s;
-overflow-y:auto;
+position:fixed;top:0;right:-100%;
+width:100%;max-width:380px;height:100%;
+background:#fff;z-index:2000;
+transition:.3s;padding:14px;overflow-y:auto
 }
-
 #cart.show{right:0}
 
 .cart-item{
-font-size:13px;
-margin-bottom:6px;
+font-size:13px;display:flex;
+justify-content:space-between;align-items:center;margin-bottom:6px
 }
 
 input,select{
-width:100%;
-padding:8px;
-margin:6px 0;
-border-radius:8px;
-border:1px solid #ccc;
+width:100%;padding:8px;margin:6px 0;
+border-radius:8px;border:1px solid #ccc
 }
 
-.total{
-font-weight:800;
-font-size:16px;
-margin:10px 0;
-}
-
+.total{font-weight:900;font-size:16px;margin:10px 0}
 .whatsapp{
-background:#25D366;
-color:#fff;
-border:none;
-padding:10px;
-width:100%;
-border-radius:10px;
-font-weight:800;
+background:#25D366;color:#fff;border:none;
+padding:10px;width:100%;border-radius:10px;font-weight:900
+}
+.legal{
+font-size:11px;color:#666;margin-top:10px
 }
 </style>
 </head>
@@ -148,12 +95,24 @@ font-weight:800;
 
 <header>
 <h1>LA MAYORISTA EXPRESS</h1>
-<button id="cartBtn">🛒 Carrito</button>
+<div class="top">
+<input id="search" placeholder="Buscar productos">
+<select id="category">
+<option value="Todas">Todas</option>
+<option value="Alimentos">Alimentos</option>
+<option value="Limpieza">Limpieza</option>
+<option value="Bebidas">Bebidas</option>
+<option value="Otros">Otros</option>
+</select>
+<button id="cartBtn">🛒 <span id="count">0</span></button>
+</div>
 </header>
 
-<div class="container">
-<div class="products" id="products"></div>
+<div class="notice">
+USD / MLC según tasa informal Cuba (El Toque) · Febrero 2026
 </div>
+
+<div class="products" id="products"></div>
 
 <div id="cart">
 <button onclick="toggleCart()">❌ Cerrar</button>
@@ -167,7 +126,7 @@ font-weight:800;
 <option>Mensajería</option>
 </select>
 
-<select id="currency" onchange="updateTotal()">
+<select id="currency" onchange="render()">
 <option value="CUP">CUP</option>
 <option value="USD">USD</option>
 <option value="MLC">MLC</option>
@@ -177,94 +136,135 @@ font-weight:800;
 <div id="cartItems"></div>
 <div class="total" id="total"></div>
 
-<button class="whatsapp" onclick="sendWhatsApp()">📲 Enviar pedido por WhatsApp</button>
+<button class="whatsapp" onclick="sendWhatsApp()">📲 Enviar pedido</button>
+
+<div class="legal">
+Precios sujetos a disponibilidad. Pedido confirmado vía WhatsApp.
+No somos pasarela de pago.
+</div>
 </div>
 
-<script>
-// TASAS ACTUALIZADAS MERCADO INFORMAL (FEB 2026)
-const rates={
-CUP:1,
-USD:495,
-MLC:410,
-CLASICA:410
-};
+<div class="toast" id="toast">Producto agregado</div>
 
-const products=[
-["Arroz 50kg",8500],["Azúcar 50kg",7800],["Aceite caja 12L",9200],
-["Leche polvo 25kg",18500],["Harina 50kg",8200],["Frijol negro 50kg",14000],
-["Pollo caja 10kg",16000],["Huevos caja 30",4200],["Pasta caja 20kg",8900],
-["Sal 50kg",2600],["Café 10kg",12500],["Detergente 25kg",9800],
-["Jabón caja",7600],["Refresco caja",5400],["Galletas caja",6100],
-["Arroz importado 50kg",9100],["Aceite girasol",9600],["Azúcar prieta",7400],
-["Harina maíz",6900],["Carne molida",17800],
-["Queso 10kg",14500],["Mantequilla",13500],["Mayonesa",7200],
-["Kétchup",6900],["Vinagre",3200],["Soya 25kg",8300],
-["Leche líquida",8800],["Cereal caja",9900],
-["Azúcar blanca",7900],["Arroz premium",9800]
+<script>
+const rates={CUP:1,USD:495,MLC:410,CLASICA:410};
+
+const productsData=[
+["Arroz 50kg",8500,"1 saco","Alimentos","🟢 Disponible"],
+["Azúcar 50kg",7800,"1 saco","Alimentos","🟢 Disponible"],
+["Aceite caja 12L",9200,"1 caja","Alimentos","🟡 Bajo stock"],
+["Leche polvo 25kg",18500,"1 saco","Alimentos","🔴 Últimas"],
+["Harina 50kg",8200,"1 saco","Alimentos","🟢 Disponible"],
+["Frijol negro 50kg",14000,"1 saco","Alimentos","🟢 Disponible"],
+["Pollo 10kg",16000,"1 caja","Alimentos","🔴 Últimas"],
+["Huevos 30u",4200,"1 caja","Alimentos","🟡 Bajo stock"],
+["Pasta 20kg",8900,"1 caja","Alimentos","🟢 Disponible"],
+["Sal 50kg",2600,"1 saco","Alimentos","🟢 Disponible"],
+
+["Detergente 25kg",9800,"1 saco","Limpieza","🟢 Disponible"],
+["Jabón caja",7600,"1 caja","Limpieza","🟢 Disponible"],
+["Cloro galón",3200,"1 galón","Limpieza","🟡 Bajo stock"],
+["Suavizante",5400,"1 caja","Limpieza","🟢 Disponible"],
+["Desinfectante",6100,"1 caja","Limpieza","🟢 Disponible"],
+
+["Refresco caja",5400,"1 caja","Bebidas","🟢 Disponible"],
+["Cerveza caja",14500,"1 caja","Bebidas","🔴 Últimas"],
+["Agua 1.5L",4200,"1 caja","Bebidas","🟢 Disponible"],
+["Malta caja",6900,"1 caja","Bebidas","🟡 Bajo stock"],
+["Jugo caja",7200,"1 caja","Bebidas","🟢 Disponible"],
+
+["Galletas caja",6100,"1 caja","Otros","🟢 Disponible"],
+["Cereal caja",9900,"1 caja","Otros","🟡 Bajo stock"],
+["Mayonesa",7200,"1 caja","Otros","🟢 Disponible"],
+["Ketchup",6900,"1 caja","Otros","🟢 Disponible"],
+["Vinagre",3200,"1 caja","Otros","🟢 Disponible"],
+["Soya 25kg",8300,"1 saco","Otros","🟢 Disponible"],
+["Queso 10kg",14500,"1 caja","Otros","🔴 Últimas"],
+["Mantequilla",13500,"1 caja","Otros","🟡 Bajo stock"],
+["Carne molida",17800,"1 caja","Otros","🔴 Últimas"],
+["Leche líquida",8800,"1 caja","Otros","🟢 Disponible"]
 ];
 
-let cart=JSON.parse(localStorage.getItem("cart")||"[]");
+let cart=JSON.parse(localStorage.getItem("cart"))||{};
+const products=document.getElementById("products");
 
-const productsDiv=document.getElementById("products");
+function render(){
+products.innerHTML="";
+const q=search.value.toLowerCase();
+const cur=currency.value;
+const cat=category.value;
 
-products.forEach((p,i)=>{
-productsDiv.innerHTML+=`
+productsData
+.filter(p=>p[0].toLowerCase().includes(q))
+.filter(p=>cat==="Todas"||p[3]===cat)
+.forEach(p=>{
+const qty=cart[p[0]]?.qty||0;
+products.innerHTML+=`
 <div class="product">
 <img src="https://via.placeholder.com/300?text=${encodeURIComponent(p[0])}">
 <h3>${p[0]}</h3>
-<p>Mínimo: 1 unidad</p>
-<p>${p[1]} CUP</p>
-<button onclick="addToCart(${i})">Agregar</button>
+<p>Mínimo: ${p[2]}</p>
+<p>${(p[1]/rates[cur]).toFixed(2)} ${cur}</p>
+<div class="stock">${p[4]}</div>
+<div class="controls">
+<button onclick="change('${p[0]}',${p[1]},-1)">−</button>
+<div>${qty}</div>
+<button onclick="change('${p[0]}',${p[1]},1)">+</button>
+</div>
 </div>`;
 });
-
-function addToCart(i){
-cart.push(products[i]);
-saveCart();
+updateCart();
 }
 
-function saveCart(){
+function change(name,price,delta){
+if(!cart[name]) cart[name]={price,qty:0};
+cart[name].qty+=delta;
+if(cart[name].qty<=0) delete cart[name];
 localStorage.setItem("cart",JSON.stringify(cart));
-renderCart();
+toast();
+render();
 }
 
-function renderCart(){
-const c=document.getElementById("cartItems");
-c.innerHTML="";
-let sum=0;
-cart.forEach(p=>{
-sum+=p[1];
-c.innerHTML+=`<div class="cart-item">${p[0]} - ${p[1]} CUP</div>`;
-});
-updateTotal(sum);
+function updateCart(){
+let sum=0,items=0,html="";
+const cur=currency.value;
+for(let k in cart){
+sum+=cart[k].price*cart[k].qty;
+items+=cart[k].qty;
+html+=`
+<div class="cart-item">
+${k} x${cart[k].qty}
+<div>
+<button onclick="change('${k}',${cart[k].price},-1)">−</button>
+<button onclick="change('${k}',${cart[k].price},1)">+</button>
+</div>
+</div>`;
+}
+cartItems.innerHTML=html||"Carrito vacío";
+total.innerText="TOTAL: "+(sum/rates[cur]).toFixed(2)+" "+cur;
+count.innerText=items;
 }
 
-function updateTotal(base){
-let total=base||cart.reduce((a,b)=>a+b[1],0);
-let cur=document.getElementById("currency").value;
-document.getElementById("total").innerText=
-"TOTAL: "+(total/rates[cur]).toFixed(2)+" "+cur;
-}
+function toggleCart(){cart.classList.toggle("show")}
 
-function toggleCart(){
-document.getElementById("cart").classList.toggle("show");
+function toast(){
+const t=document.getElementById("toast");
+t.style.display="block";
+setTimeout(()=>t.style.display="none",800);
 }
-
-document.getElementById("cartBtn").onclick=toggleCart;
 
 function sendWhatsApp(){
-let msg="PEDIDO LA MAYORISTA EXPRESS\n";
-cart.forEach(p=>msg+=p[0]+" - "+p[1]+" CUP\n");
-msg+="Cliente: "+name.value+"\n";
-msg+="Tel: "+phone.value+"\n";
-msg+="Pago: "+currency.value+"\n";
-msg+="Entrega: "+delivery.value+"\n";
-msg+=total.innerText;
-window.open("https://wa.me/53420021?text="+encodeURIComponent(msg));
+let msg=`PEDIDO LA MAYORISTA EXPRESS\n\nCliente: ${name.value}\nTel: ${phone.value}\nEntrega: ${delivery.value}\nPago: ${currency.value}\n\n`;
+for(let k in cart){msg+=`${k} x${cart[k].qty}\n`}
+msg+=`\n${total.innerText}`;
+window.open("https://wa.me/5353420021?text="+encodeURIComponent(msg));
 }
 
-renderCart();
+search.oninput=render;
+category.onchange=render;
+cartBtn.onclick=toggleCart;
+render();
 </script>
 
 </body>
-</html>
+                                         </html>
