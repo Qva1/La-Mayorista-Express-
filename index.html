@@ -2,380 +2,245 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LA MAYORISTA EXPRESS</title>
-
-<link rel="manifest" href="data:application/json,{
-  &quot;name&quot;:&quot;LA MAYORISTA EXPRESS&quot;,
-  &quot;short_name&quot;:&quot;MAYORISTA&quot;,
-  &quot;start_url&quot;:&quot;.&quot;,
-  &quot;display&quot;:&quot;standalone&quot;,
-  &quot;background_color&quot;:&quot;#ff5a00&quot;,
-  &quot;theme_color&quot;:&quot;#ff5a00&quot;
-}">
-
+<meta name="theme-color" content="#ff5722">
+<meta name="description" content="LA MAYORISTA EXPRESS - Marketplace mayorista en Cuba">
+<link rel="manifest" href='data:application/json,{
+  "name":"LA MAYORISTA EXPRESS",
+  "short_name":"MAYORISTA",
+  "start_url":".",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#ff5722",
+  "icons":[{"src":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB","sizes":"192x192","type":"image/png"}]
+}'>
 <style>
-:root{
-  --primary:#ff5a00;
-  --bg:#f6f6f6;
-  --card:#ffffff;
-  --text:#222;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:var(--bg);
-  color:var(--text);
-}
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  background:var(--primary);
-  color:white;
-  z-index:10;
-}
-header .top{
-  display:flex;
-  align-items:center;
-  padding:10px;
-  gap:8px;
-}
-header h1{
-  font-size:16px;
-  margin:0;
-  flex:1;
-}
-header input{
-  flex:2;
-  padding:8px;
-  border-radius:8px;
-  border:none;
-}
-header select{
-  padding:6px;
-  border-radius:8px;
-  border:none;
-}
-.marquee{
-  background:#ff7a33;
-  white-space:nowrap;
-  overflow:hidden;
-}
-.marquee span{
-  display:inline-block;
-  padding-left:100%;
-  animation:marquee 15s linear infinite;
-}
-@keyframes marquee{
-  from{transform:translateX(0)}
-  to{transform:translateX(-100%)}
-}
-
-main{
-  padding:120px 10px 80px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  padding:12px;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.card .name{
-  font-size:14px;
-  font-weight:600;
-}
-.card .price{
-  font-size:13px;
-  color:var(--primary);
-}
-.controls{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.controls button{
-  background:var(--primary);
-  color:white;
-  border:none;
-  border-radius:10px;
-  width:32px;
-  height:32px;
-  font-size:18px;
-}
-.controls span{
-  font-size:14px;
-}
-
-#cartBtn{
-  position:fixed;
-  bottom:10px;
-  right:10px;
-  background:var(--primary);
-  color:white;
-  padding:14px;
-  border-radius:50px;
-  z-index:20;
-}
-
-#drawer{
-  position:fixed;
-  top:0;
-  left:-100%;
-  width:85%;
-  height:100%;
-  background:white;
-  z-index:30;
-  transition:.3s;
-  padding:10px;
-  overflow:auto;
-}
-#drawer.open{left:0}
-#drawer h2{margin-top:0}
-
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-}
-.cart-item button{
-  background:red;
-  color:white;
-  border:none;
-  border-radius:6px;
-}
-
-.section{
-  margin-top:10px;
-  font-size:13px;
-}
-.section input, .section select{
-  width:100%;
-  padding:8px;
-  margin-top:4px;
-}
-
-#invoice{
-  display:none;
-  background:#f1f1f1;
-  padding:10px;
-  border-radius:10px;
-  font-size:12px;
-  margin-top:10px;
-}
-
-.ad{
-  position:fixed;
-  bottom:80px;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--primary);
-  color:white;
-  padding:10px 14px;
-  border-radius:20px;
-  display:none;
-  z-index:40;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
+body{background:#f5f5f5;color:#222}
+header{position:fixed;top:0;left:0;right:0;background:#ff5722;color:#fff;z-index:1000;padding:10px}
+header h1{font-size:18px;text-align:center}
+.top-controls{display:flex;gap:6px;margin-top:6px}
+.top-controls input{flex:1;padding:8px;border-radius:20px;border:none}
+.top-controls select,.cart-btn{padding:8px;border-radius:20px;border:none}
+.cart-btn{background:#fff;color:#ff5722;font-weight:bold}
+.marquee{margin-top:6px;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:mar 15s linear infinite}
+@keyframes mar{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+main{padding-top:130px;padding-bottom:40px}
+.products{display:grid;grid-template-columns:1fr;gap:12px;padding:12px}
+.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
+.card h3{font-size:16px}
+.price{font-weight:bold;color:#ff5722}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.controls button{width:32px;height:32px;border:none;border-radius:50%;background:#ff5722;color:#fff;font-size:18px}
+.drawer{position:fixed;top:0;left:-100%;width:100%;height:100%;background:#fff;z-index:2000;transition:.3s;padding:12px;overflow:auto}
+.drawer.open{left:0}
+.drawer h2{text-align:center;margin-bottom:10px}
+.drawer-item{display:flex;justify-content:space-between;margin:6px 0}
+.total{font-size:18px;font-weight:bold;margin-top:10px}
+.form-group{margin:8px 0}
+.form-group input,.form-group select{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc}
+.invoice{background:#f9f9f9;padding:10px;border-radius:8px;margin-top:10px;display:none}
+.invoice.show{display:block}
+.announce{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#ff5722;color:#fff;padding:10px 16px;border-radius:20px;display:none;z-index:3000}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="top">
-    <h1>LA MAYORISTA EXPRESS</h1>
-    <input id="search" placeholder="Buscar producto">
+  <h1>LA MAYORISTA EXPRESS</h1>
+  <div class="top-controls">
+    <input id="search" placeholder="Buscar productos...">
     <select id="currency">
       <option value="CUP">CUP</option>
       <option value="USD">USD</option>
       <option value="MLC">MLC</option>
-      <option value="TC">Tarjeta</option>
-      <option value="CRYPTO">Cripto</option>
+      <option value="TC">Tarjeta Clásica</option>
+      <option value="CRYPTO">Criptomoneda</option>
     </select>
+    <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cartTotal">0</span></button>
   </div>
-  <div class="marquee"><span>📦 Envíos rápidos | 💰 Precios mayoristas | 📲 Pedidos por WhatsApp</span></div>
+  <div class="marquee"><span>🔥 Ofertas mayoristas • 🚚 Envíos rápidos • 💰 Precios reales de mercado • 🛒 Compra segura</span></div>
 </header>
 
 <main>
-  <div class="grid" id="products"></div>
+  <div class="products" id="products"></div>
 </main>
 
-<button id="cartBtn">🛒 <span id="total">0</span></button>
-
-<div id="drawer">
-  <button onclick="toggleCart()">❌ Cerrar</button>
+<div class="drawer" id="cart">
   <h2>Carrito</h2>
   <div id="cartItems"></div>
-  <div class="section">Subtotal: <span id="subtotal"></span></div>
-  <div class="section">Envío: <span id="shipping"></span></div>
-  <div class="section"><b>Total: <span id="final"></span></b></div>
+  <div class="total" id="cartSum"></div>
   <button onclick="clearCart()">Vaciar carrito</button>
 
-  <div class="section">
-    <h3>Datos del cliente</h3>
-    <input id="name" placeholder="Nombre">
-    <input id="phone" placeholder="Teléfono">
-    <input id="address" placeholder="Dirección">
+  <h3>Datos del cliente</h3>
+  <div class="form-group"><input id="name" placeholder="Nombre completo"></div>
+  <div class="form-group"><input id="phone" placeholder="Teléfono"></div>
+  <div class="form-group"><input id="address" placeholder="Dirección"></div>
+  <div class="form-group">
     <select id="pay">
       <option>Efectivo</option>
       <option>Transferencia</option>
+      <option>MLC</option>
       <option>Cripto</option>
     </select>
+  </div>
+  <div class="form-group">
     <select id="delivery">
       <option>Mensajería</option>
       <option>Recoger en tienda</option>
     </select>
   </div>
 
-  <button onclick="toggleInvoice()">Ver factura</button>
-  <div id="invoice"></div>
+  <button onclick="toggleInvoice()">Ver / Ocultar factura</button>
+  <div class="invoice" id="invoice"></div>
 
   <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
+  <button onclick="toggleCart()">Cerrar</button>
 </div>
 
-<div class="ad" id="ad"></div>
+<div class="announce" id="announce"></div>
 
 <script>
-if('serviceWorker'in navigator){
-  const sw = `
-    self.addEventListener('install',e=>self.skipWaiting());
-    self.addEventListener('fetch',e=>{});
-  `;
-  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'})));
-}
-
-const rates={CUP:1,USD:350,MLC:300,TC:320,CRYPTO:400};
+const rates={USD:495,MLC:410,TC:410,CRYPTO:495,CUP:1};
 const products=[
-{n:"🍚 Arroz",p:3000+1000,m:5},{n:"🫘 Frijoles negros",p:2600,m:3},
-{n:"🧂 Sal",p:600,m:5},{n:"🍬 Azúcar",p:1800,m:5},
-{n:"🍝 Espagueti",p:2200,m:2},{n:"🛢️ Aceite",p:4500,m:1},
-{n:"🥫 Sardinas",p:2500,m:2},{n:"🥛 Leche en polvo",p:6200,m:1},
-{n:"☕ Café",p:5500,m:1},{n:"🍪 Galletas",p:2000,m:3},
-{n:"🧼 Jabón",p:900,m:5},{n:"🧴 Champú",p:2800,m:2},
-{n:"🪥 Pasta dental",p:1500,m:3},{n:"🧻 Papel sanitario",p:2400,m:2},
-{n:"🧽 Detergente",p:3200,m:1},{n:"🧺 Suavizante",p:3000,m:1},
-{n:"🧴 Cloro",p:1800,m:2},{n:"🧹 Escoba",p:3500,m:1},
-{n:"🪣 Cubo plástico",p:4200,m:1},{n:"🧊 Hielo",p:800,m:5},
-{n:"🥫 Pasta tomate",p:2100,m:2},{n:"🍞 Pan",p:1200,m:5},
-{n:"🥚 Huevos",p:3000,m:1},{n:"🍗 Pollo",p:7000,m:1},
-{n:"🍖 Cerdo",p:7500,m:1},{n:"🥩 Res",p:9000,m:1},
-{n:"🍎 Manzana",p:1800,m:5},{n:"🍌 Plátano",p:1400,m:5},
-{n:"🥔 Papa",p:1300,m:5},{n:"🧅 Cebolla",p:1600,m:5},
-{n:"🧄 Ajo",p:2000,m:2},{n:"🥕 Zanahoria",p:1500,m:5},
-{n:"🌶️ Ají",p:1700,m:3},{n:"🍅 Tomate",p:1600,m:5},
-{n:"🥬 Lechuga",p:1400,m:3},{n:"🧃 Refresco",p:2200,m:3},
-{n:"🍺 Cerveza",p:3500,m:3},{n:"🧃 Jugo",p:2400,m:3},
-{n:"🍫 Chocolate",p:3000,m:2},{n:"🍯 Miel",p:4000,m:1},
-{n:"🧈 Mantequilla",p:4800,m:1},{n:"🧀 Queso",p:5200,m:1},
-{n:"🥓 Jamón",p:4900,m:1},{n:"🥫 Atún",p:2800,m:2},
-{n:"🍚 Harina",p:1900,m:5},{n:"🥜 Maní",p:2300,m:3},
-{n:"🍿 Maíz",p:1700,m:5},{n:"🧴 Alcohol",p:2600,m:2},
-{n:"🧴 Gel antibacterial",p:2400,m:2},{n:"🪒 Afeitadoras",p:2100,m:3},
-{n:"🧻 Servilletas",p:1800,m:3},{n:"🧽 Esponjas",p:1600,m:3}
-].map(p=>({...p,p:p.p*0.7}));
-
+["🍚 Saco de Arroz (100 lb)","saco",13600],
+["🫘 Frijol negro","lb",224],
+["🫘 Frijol colorado","lb",240],
+["🍬 Azúcar","lb",184],
+["🌽 Harina de maíz","lb",120],
+["🌽 Maíz en grano","lb",112],
+["🍝 Espagueti 500g","unidad",224],
+["🍗 Pollo","lb",256],
+["🐖 Carne de cerdo","lb",520],
+["🥩 Picadillo","lb",320],
+["🥚 Cartón de huevos (30)","cartón",2240],
+["🥛 Leche en polvo","kg",2800],
+["🧀 Queso blanco","lb",2240],
+["🛢️ Aceite","litro",560],
+["🧺 Detergente polvo","kg",560],
+["🧴 Detergente líquido","litro",600],
+["🧼 Jabón de baño","unidad",200],
+["🧻 Papel higiénico","paquete",704],
+["🧅 Cebolla","lb",240],
+["🍅 Tomate","lb",160],
+["🥔 Papa","lb",160],
+["🍌 Plátano vianda","lb",96],
+["🍞 Pan","unidad",120],
+["🍚 Arroz congrí preparado","kg",400],
+["🥫 Pasta de tomate","unidad",280],
+["🧂 Sal","lb",80],
+["🧈 Margarina","unidad",320],
+["🍯 Miel","unidad",600],
+["🥕 Zanahoria","lb",160],
+["🥬 Col","lb",144],
+["🍍 Piña","unidad",400],
+["🍉 Melón","unidad",480],
+["🍊 Naranja","lb",96],
+["🍋 Limón","lb",120],
+["🧃 Refresco","unidad",200],
+["🥤 Jugo","unidad",240],
+["🧽 Esponja","unidad",120],
+["🪣 Cubo plástico","unidad",600],
+["🧴 Cloro","litro",200],
+["🧼 Suavizante","litro",480],
+["🧺 Jabón lavar","lb",240],
+["🍖 Costilla cerdo","lb",560],
+["🐄 Carne res","lb",960],
+["🥓 Tocino","lb",640],
+["🍗 Muslo pollo","lb",280],
+["🥫 Sardinas","unidad",320],
+["🥫 Atún","unidad",560],
+["🍪 Galletas","paquete",200],
+["🍫 Chocolate","unidad",320],
+["🧂 Condimento mixto","unidad",160],
+["🍚 Harina trigo","lb",160],
+["🥛 Leche líquida","litro",240],
+["🧼 Shampoo","unidad",600],
+["🪥 Pasta dental","unidad",320],
+["🧴 Alcohol","litro",400]
+];
 let cart=JSON.parse(localStorage.getItem("cart")||"{}");
 let currency=localStorage.getItem("currency")||"CUP";
 
 document.getElementById("currency").value=currency;
 
 function render(){
-  const g=document.getElementById("products");
-  g.innerHTML="";
+  const list=document.getElementById("products");
+  list.innerHTML="";
   products.forEach((p,i)=>{
-    const q=cart[i]||0;
-    const d=document.createElement("div");
-    d.className="card";
-    d.innerHTML=`
-      <div class="name">${p.n}</div>
-      <div class="price">${price(p.p)}</div>
-      <div>Mín: ${p.m}</div>
-      <div class="controls">
-        <button onclick="add(${i},-${p.m})">➖</button>
-        <span>${q}</span>
-        <button onclick="add(${i},${p.m})">➕</button>
-      </div>`;
-    g.appendChild(d);
+    if(document.getElementById("search").value && !p[0].toLowerCase().includes(document.getElementById("search").value.toLowerCase()))return;
+    const qty=cart[i]||0;
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`<h3>${p[0]}</h3><div>${p[1]}</div>
+    <div class="price">${convert(p[2])}</div>
+    <div class="controls">
+      <button onclick="add(${i},-1)">➖</button>
+      <span>${qty}</span>
+      <button onclick="add(${i},1)">➕</button>
+    </div>`;
+    list.appendChild(div);
   });
-  save();
   updateCart();
 }
-
-function price(v){return (v/rates[currency]).toFixed(2)+" "+currency}
-function add(i,d){cart[i]=(cart[i]||0)+d;if(cart[i]<0)delete cart[i];render()}
-function toggleCart(){document.getElementById("drawer").classList.toggle("open")}
-function save(){localStorage.setItem("cart",JSON.stringify(cart));localStorage.setItem("currency",currency)}
-document.getElementById("cartBtn").onclick=toggleCart;
-document.getElementById("currency").onchange=e=>{currency=e.target.value;render()}
-
+function convert(v){
+  if(currency==="CUP")return v+" CUP";
+  return (v/rates[currency]).toFixed(2)+" "+currency;
+}
+function add(i,d){
+  cart[i]=(cart[i]||0)+d;
+  if(cart[i]<0)cart[i]=0;
+  save();
+}
+function save(){
+  localStorage.setItem("cart",JSON.stringify(cart));
+  localStorage.setItem("currency",currency);
+  render();
+}
 function updateCart(){
-  let s=0;
-  const ci=document.getElementById("cartItems");
-  ci.innerHTML="";
+  let sum=0;
+  let items="";
   Object.keys(cart).forEach(i=>{
-    const p=products[i];
-    const q=cart[i];
-    const l=document.createElement("div");
-    l.className="cart-item";
-    l.innerHTML=`${p.n} x${q} <button onclick="del(${i})">X</button>`;
-    ci.appendChild(l);
-    s+=p.p*q;
+    if(cart[i]>0){
+      const p=products[i];
+      const sub=p[2]*cart[i];
+      sum+=sub;
+      items+=`<div class="drawer-item">${p[0]} x${cart[i]} <span>${convert(sub)}</span></div>`;
+    }
   });
-  document.getElementById("subtotal").innerText=price(s);
-  const ship=s>0?500:0;
-  document.getElementById("shipping").innerText=price(ship);
-  document.getElementById("final").innerText=price(s+ship);
-  document.getElementById("total").innerText=price(s+ship);
+  document.getElementById("cartItems").innerHTML=items;
+  document.getElementById("cartSum").innerText="Total: "+convert(sum);
+  document.getElementById("cartTotal").innerText=convert(sum);
+  document.getElementById("invoice").innerText=items+"\nTotal: "+convert(sum);
 }
-function del(i){delete cart[i];render()}
-function clearCart(){cart={};render()}
-
-function toggleInvoice(){
-  const inv=document.getElementById("invoice");
-  if(inv.style.display=="block"){inv.style.display="none";return}
-  let t="";
-  Object.keys(cart).forEach(i=>{
-    t+=products[i].n+" x"+cart[i]+"\n";
-  });
-  inv.innerText=
-`FACTURA
-Cliente: ${name.value}
-Tel: ${phone.value}
-Dirección: ${address.value}
-
-Productos:
-${t}
-
-Total: ${final.innerText}
-Pago: ${pay.value}
-Entrega: ${delivery.value}`;
-  inv.style.display="block";
-}
-
+function toggleCart(){document.getElementById("cart").classList.toggle("open")}
+function clearCart(){cart={};save()}
+function toggleInvoice(){document.getElementById("invoice").classList.toggle("show")}
 function sendWhatsApp(){
-  const msg=encodeURIComponent(invoice.innerText);
-  window.open("https://wa.me/53420021?text="+msg,"_blank");
+  const text=encodeURIComponent(document.getElementById("invoice").innerText);
+  window.open("https://wa.me/53420021?text="+text,"_blank");
 }
+document.getElementById("currency").onchange=e=>{currency=e.target.value;save()}
+document.getElementById("search").oninput=render;
 
-const ads=["🔥 Ofertas diarias","📦 Entregas rápidas","💰 Precios mayoristas"];
 setInterval(()=>{
-  const a=document.getElementById("ad");
-  a.innerText=ads[Math.floor(Math.random()*ads.length)];
+  const a=document.getElementById("announce");
+  a.innerText=["🔥 Oferta especial","🚚 Envíos rápidos","💰 Precios mayoristas"][Math.floor(Math.random()*3)];
   a.style.display="block";
   setTimeout(()=>a.style.display="none",3000);
-},20000);
+},[20000,30000,60000][Math.floor(Math.random()*3)]);
 
 render();
+
+if("serviceWorker"in navigator){
+  const sw=`
+  self.addEventListener('install',e=>self.skipWaiting());
+  self.addEventListener('fetch',e=>{});
+  `;
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"})));
+}
 </script>
 </body>
   </html>
