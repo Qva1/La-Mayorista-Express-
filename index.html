@@ -19,84 +19,82 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-body{background:#f4f4f4;color:#222}
+body{background:#f6f6f6;color:#222}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;background:#ff4d00;color:#fff;z-index:1000;padding:12px}
-header h1{text-align:center;font-size:22px;font-weight:900}
-.header-row{display:flex;gap:8px;margin-top:10px}
-.header-row input{flex:1;padding:12px;border-radius:30px;border:none;font-size:15px}
-.header-row select,.cart-btn{padding:12px;border-radius:30px;border:none;font-weight:800}
+header{position:fixed;top:0;left:0;right:0;background:#ff4d00;color:#fff;z-index:1000;padding:10px}
+header h1{text-align:center;font-size:20px;font-weight:800}
+.header-row{display:flex;gap:6px;margin-top:8px}
+.header-row input{flex:1;padding:10px;border-radius:25px;border:none;font-size:14px}
+.header-row select,.cart-btn{padding:10px;border-radius:25px;border:none;font-weight:700}
 .cart-btn{background:#fff;color:#ff4d00}
 
 /* MARQUEE */
-.marquee{margin-top:10px;overflow:hidden;white-space:nowrap}
-.marquee span{display:inline-block;padding-left:100%;animation:mar 18s linear infinite;font-weight:700}
+.marquee{margin-top:8px;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:mar 18s linear infinite;font-weight:600}
 @keyframes mar{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
 /* MAIN */
-main{padding-top:170px;padding-bottom:80px}
-.products{display:grid;grid-template-columns:1fr;gap:22px;padding:16px}
+main{padding-top:150px;padding-bottom:60px}
+.products{display:grid;grid-template-columns:1fr;gap:18px;padding:14px}
 
-/* PRODUCT CARD (EXTRA LARGE TEMU STYLE) */
+/* PRODUCT CARD (TEMU STYLE BIG) */
 .card{
  background:#fff;
- border-radius:26px;
- padding:22px;
- box-shadow:0 10px 26px rgba(0,0,0,.15);
- transition:.25s;
+ border-radius:22px;
+ padding:18px;
+ box-shadow:0 8px 20px rgba(0,0,0,.12);
+ transition:.25s
 }
-.card h3{font-size:22px;font-weight:900;margin-bottom:6px}
-.card small{opacity:.7;font-size:14px}
-.price{font-size:26px;font-weight:900;color:#ff4d00;margin:14px 0}
+.card h3{font-size:20px;font-weight:800;margin-bottom:6px}
+.card small{opacity:.7}
+.price{font-size:22px;font-weight:900;color:#ff4d00;margin:10px 0}
 .controls{display:flex;justify-content:space-between;align-items:center}
 .controls button{
- width:54px;height:54px;
+ width:44px;height:44px;
  border:none;border-radius:50%;
  background:#ff4d00;color:#fff;
- font-size:26px;font-weight:900
+ font-size:22px;font-weight:800
 }
-.controls span{font-size:20px;font-weight:800}
+.controls span{font-size:18px;font-weight:700}
 
 /* DRAWER */
 .drawer{
  position:fixed;top:0;left:-100%;
  width:100%;height:100%;
  background:#fff;z-index:2000;
- transition:.35s;padding:18px;overflow:auto
+ transition:.35s;padding:16px;overflow:auto
 }
 .drawer.open{left:0}
-.drawer h2{text-align:center;margin-bottom:14px;font-size:22px}
-.drawer-item{display:flex;justify-content:space-between;margin:8px 0;font-size:15px}
-.total{font-size:22px;font-weight:900;margin:14px 0}
+.drawer h2{text-align:center;margin-bottom:12px}
+.drawer-item{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}
+.total{font-size:20px;font-weight:900;margin:12px 0}
 
 /* FORM */
-.form-group{margin:10px 0}
+.form-group{margin:8px 0}
 .form-group input,.form-group select{
- width:100%;padding:12px;
- border-radius:14px;border:1px solid #ccc
+ width:100%;padding:10px;
+ border-radius:10px;border:1px solid #ccc
 }
 
 /* INVOICE */
 .invoice{
- background:#f1f1f1;
- border-radius:14px;
- padding:14px;
- margin-top:12px;
- display:none;
- font-size:14px;
- white-space:pre-line
+ background:#f2f2f2;
+ border-radius:12px;
+ padding:12px;
+ margin-top:10px;
+ display:none;font-size:14px
 }
 .invoice.show{display:block}
 
 /* ANNOUNCE */
 .announce{
- position:fixed;bottom:24px;left:50%;
+ position:fixed;bottom:20px;left:50%;
  transform:translateX(-50%);
  background:#ff4d00;color:#fff;
- padding:14px 22px;
- border-radius:30px;
- font-weight:800;
+ padding:12px 18px;
+ border-radius:25px;
+ font-weight:700;
  display:none;z-index:3000
 }
 </style>
@@ -126,6 +124,7 @@ main{padding-top:170px;padding-bottom:80px}
 <div class="products" id="products"></div>
 </main>
 
+<!-- CART DRAWER -->
 <div class="drawer" id="cart">
 <h2>Carrito</h2>
 <div id="cartItems"></div>
@@ -161,172 +160,177 @@ main{padding-top:170px;padding-bottom:80px}
 <div class="announce" id="announce"></div>
 
 <script>
-/* TASAS */
+/* TASA */
 const rates={CUP:1,USD:495,MLC:410,TC:410,CRYPTO:495};
 
 /* PRODUCTOS EXACTAMENTE 60 */
 const products=[
-["🍚 Saco de Arroz (100 lb)","Saco",13600],
-["🫘 Frijol negro","Libra",224],
-["🫘 Frijol colorado","Libra",240],
-["🍬 Azúcar","Libra",184],
-["🌽 Harina de maíz","Libra",120],
-["🌽 Maíz en grano","Libra",112],
-["🍝 Espagueti 500 g","Unidad",224],
-["🍗 Pollo","Libra",256],
-["🐖 Carne de cerdo","Libra",520],
-["🥩 Picadillo","Libra",320],
-["🥚 Cartón de huevos (30)","Cartón",2240],
-["🥛 Leche en polvo","Kilo",2800],
-["🧀 Queso blanco","Libra",2240],
-["🛢️ Aceite","Litro",560],
-["🧺 Detergente polvo","Kilo",560],
-["🧴 Detergente líquido","Litro",600],
-["🧼 Jabón de baño","Unidad",200],
-["🧻 Papel higiénico","Paquete",704],
-["🧅 Cebolla","Libra",240],
-["🍅 Tomate","Libra",160],
-["🥔 Papa","Libra",160],
-["🍌 Plátano vianda","Libra",96],
-["🍞 Pan","Unidad",120],
-["🧂 Sal","Libra",80],
-["🥕 Zanahoria","Libra",160],
-["🥬 Col","Libra",144],
-["🍊 Naranja","Libra",96],
-["🍍 Piña","Unidad",400],
-["🍉 Melón","Unidad",480],
-["🍫 Chocolate","Unidad",320],
-["🍪 Galletas","Paquete",200],
-["🥫 Atún","Unidad",560],
-["🥫 Sardinas","Unidad",320],
-["🍗 Muslo de pollo","Libra",280],
-["🍖 Costilla de cerdo","Libra",560],
-["🐄 Carne de res","Libra",960],
-["🥓 Tocino","Libra",640],
-["🧽 Esponja","Unidad",120],
-["🧴 Cloro","Litro",200],
-["🧼 Shampoo","Unidad",600],
-["🪥 Pasta dental","Unidad",320],
-["🧺 Jabón lavar","Libra",240],
-["🧴 Alcohol","Litro",400],
-["🪣 Cubo plástico","Unidad",600],
-["🧃 Jugo","Unidad",240],
-["🥤 Refresco","Unidad",200],
-["🍯 Miel","Unidad",600],
-["🧈 Margarina","Unidad",320],
-["🧂 Condimento","Unidad",160],
-["🍚 Harina de trigo","Libra",160],
-["🥛 Leche líquida","Litro",240],
-["🧼 Suavizante","Litro",480],
-["🍪 Dulce seco","Paquete",180],
-["🧴 Desodorante","Unidad",520],
-["🧻 Servilletas","Paquete",240]
+["🍚 Saco de Arroz (100 lb)","saco",13600],
+["🫘 Frijol negro","lb",224],
+["🫘 Frijol colorado","lb",240],
+["🍬 Azúcar","lb",184],
+["🌽 Harina de maíz","lb",120],
+["🌽 Maíz en grano","lb",112],
+["🍝 Espagueti 500 g","unidad",224],
+["🍗 Pollo","lb",256],
+["🐖 Carne de cerdo","lb",520],
+["🥩 Picadillo","lb",320],
+["🥚 Cartón de huevos (30)","cartón",2240],
+["🥛 Leche en polvo","kg",2800],
+["🧀 Queso blanco","lb",2240],
+["🛢️ Aceite","litro",560],
+["🧺 Detergente polvo","kg",560],
+["🧴 Detergente líquido","litro",600],
+["🧼 Jabón de baño","unidad",200],
+["🧻 Papel higiénico","paquete",704],
+["🧅 Cebolla","lb",240],
+["🍅 Tomate","lb",160],
+["🥔 Papa","lb",160],
+["🍌 Plátano vianda","lb",96],
+["🍞 Pan","unidad",120],
+["🧂 Sal","lb",80],
+["🥕 Zanahoria","lb",160],
+["🥬 Col","lb",144],
+["🍊 Naranja","lb",96],
+["🍍 Piña","unidad",400],
+["🍉 Melón","unidad",480],
+["🍫 Chocolate","unidad",320],
+["🍪 Galletas","paquete",200],
+["🥫 Atún","unidad",560],
+["🥫 Sardinas","unidad",320],
+["🍗 Muslo de pollo","lb",280],
+["🍖 Costilla cerdo","lb",560],
+["🐄 Carne de res","lb",960],
+["🥓 Tocino","lb",640],
+["🧽 Esponja","unidad",120],
+["🧴 Cloro","litro",200],
+["🧼 Shampoo","unidad",600],
+["🪥 Pasta dental","unidad",320],
+["🧺 Jabón lavar","lb",240],
+["🧴 Alcohol","litro",400],
+["🪣 Cubo plástico","unidad",600],
+["🧃 Jugo","unidad",240],
+["🥤 Refresco","unidad",200],
+["🍯 Miel","unidad",600],
+["🧈 Margarina","unidad",320],
+["🧂 Condimento","unidad",160],
+["🍚 Harina trigo","lb",160],
+["🥛 Leche líquida","litro",240],
+["🧼 Suavizante","litro",480],
+["🍪 Dulce seco","paquete",180],
+["🧴 Desodorante","unidad",520],
+["🧻 Servilletas","paquete",240]
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart")||"{}");
 let currency=localStorage.getItem("currency")||"CUP";
-let invoiceVisible=localStorage.getItem("invoice")==="1";
+let invoiceVisible=localStorage.getItem("invoice")=="1";
 
-currencySelect.value=currency;
-
-/* CONVERSIÓN */
-function convert(value){
- if(currency==="CUP")return value.toFixed(0)+" CUP";
- return (value/rates[currency]).toFixed(2)+" "+currency;
-}
+document.getElementById("currency").value=currency;
 
 /* RENDER */
 function render(){
- productsBox.innerHTML="";
+ const list=document.getElementById("products");
+ list.innerHTML="";
  products.forEach((p,i)=>{
   if(search.value && !p[0].toLowerCase().includes(search.value.toLowerCase()))return;
   const q=cart[i]||0;
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-   <h3>${p[0]}</h3>
-   <small>${p[1]}</small>
-   <div class="price">${convert(p[2])}</div>
-   <div class="controls">
-    <button onclick="add(${i},-1)">➖</button>
-    <span>${q}</span>
-    <button onclick="add(${i},1)">➕</button>
-   </div>`;
-  productsBox.appendChild(card);
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+  <h3>${p[0]}</h3>
+  <small>${p[1]}</small>
+  <div class="price">${convert(p[2])}</div>
+  <div class="controls">
+   <button onclick="add(${i},-1)">➖</button>
+   <span>${q}</span>
+   <button onclick="add(${i},1)">➕</button>
+  </div>`;
+  list.appendChild(d);
  });
  updateCart();
 }
 
-/* CART LOGIC */
+/* CONVERT */
+function convert(v){
+ if(currency==="CUP")return v+" CUP";
+ return (v/rates[currency]).toFixed(2)+" "+currency;
+}
+
+/* ADD */
 function add(i,d){
  cart[i]=(cart[i]||0)+d;
  if(cart[i]<0)cart[i]=0;
  save();
 }
+
+/* SAVE */
 function save(){
  localStorage.setItem("cart",JSON.stringify(cart));
  localStorage.setItem("currency",currency);
  localStorage.setItem("invoice",invoiceVisible?1:0);
  render();
 }
-function clearCart(){cart={};save();}
-function toggleCart(){cartDiv.classList.toggle("open");}
-function toggleInvoice(){invoiceVisible=!invoiceVisible;invoice.classList.toggle("show");save();}
 
-/* UPDATE CART + FACTURA */
+/* CART */
 function updateCart(){
- let sum=0,items="",rows="";
+ let sum=0,items="",inv="";
  Object.keys(cart).forEach(i=>{
   if(cart[i]>0){
    const p=products[i];
    const sub=p[2]*cart[i];
    sum+=sub;
    items+=`<div class="drawer-item">${p[0]} x${cart[i]} <span>${convert(sub)}</span></div>`;
-   rows+=`${p[0]} | Cantidad: ${cart[i]} | Precio: ${convert(p[2])} | Subtotal: ${convert(sub)}\n`;
+   inv+=`${p[0]} | ${cart[i]} x ${convert(p[2])} = ${convert(sub)}\n`;
   }
  });
- const envio=delivery.value==="Mensajería"?500:0;
- cartItems.innerHTML=items;
- cartSum.innerText="TOTAL: "+convert(sum+envio);
- cartTotal.innerText=convert(sum+envio);
-
- invoice.innerText=
+ const envio=document.getElementById("delivery").value==="Mensajería"?500:0;
+ document.getElementById("cartItems").innerHTML=items;
+ document.getElementById("cartSum").innerText="Total: "+convert(sum+envio);
+ document.getElementById("cartTotal").innerText=convert(sum+envio);
+ document.getElementById("invoice").innerText=
 `LA MAYORISTA EXPRESS
 Fecha: ${new Date().toLocaleDateString()}
 
-CLIENTE
-Nombre: ${name.value}
+Cliente: ${name.value}
 Teléfono: ${phone.value}
 Dirección: ${address.value}
 
 PRODUCTOS
-${rows}
+${inv}
 
-SUBTOTAL: ${convert(sum)}
-ENVÍO: ${convert(envio)}
-TOTAL FINAL: ${convert(sum+envio)}
+Subtotal: ${convert(sum)}
+Envío: ${convert(envio)}
+TOTAL: ${convert(sum+envio)}
 
-FORMA DE PAGO: ${pay.value}
-ENTREGA: ${delivery.value}`;
+Pago: ${pay.value}
+Entrega: ${delivery.value}`;
 }
+
+/* UI */
+function toggleCart(){cartDiv.classList.toggle("open")}
+function clearCart(){cart={};save()}
+function toggleInvoice(){invoiceVisible=!invoiceVisible;invoice.classList.toggle("show");save()}
 
 /* WHATSAPP */
 function sendWhatsApp(){
- const msg=encodeURIComponent(invoice.innerText);
- window.open("https://wa.me/53420021?text="+msg,"_blank");
+ const text=encodeURIComponent(invoice.innerText);
+ window.open("https://wa.me/53420021?text="+text,"_blank");
 }
 
 /* EVENTS */
 search.oninput=render;
-currencySelect.onchange=e=>{currency=e.target.value;save();}
-[name,phone,address,pay,delivery].forEach(el=>el.oninput=save);
+currency.onchange=e=>{currency=e.target.value;save()};
+["name","phone","address","pay","delivery"].forEach(id=>{
+ document.getElementById(id).oninput=save;
+});
 
 /* ANNOUNCES */
 setInterval(()=>{
  const msgs=[
- "🔥 Ofertas mayoristas activas",
- "🚚 Envíos rápidos disponibles",
- "💰 Compra más y ahorra más"
+ "🔥 Grandes ofertas mayoristas",
+ "🚚 Entregas rápidas disponibles",
+ "💰 Ahorra comprando al por mayor"
  ];
  announce.innerText=msgs[Math.floor(Math.random()*msgs.length)];
  announce.style.display="block";
@@ -334,28 +338,14 @@ setInterval(()=>{
 },[20000,30000,60000][Math.floor(Math.random()*3)]);
 
 /* INIT */
-const productsBox=document.getElementById("products");
 const cartDiv=document.getElementById("cart");
 const invoice=document.getElementById("invoice");
-const cartItems=document.getElementById("cartItems");
-const cartSum=document.getElementById("cartSum");
-const cartTotal=document.getElementById("cartTotal");
-const currencySelect=document.getElementById("currency");
-const search=document.getElementById("search");
-const announce=document.getElementById("announce");
-const name=document.getElementById("name");
-const phone=document.getElementById("phone");
-const address=document.getElementById("address");
-const pay=document.getElementById("pay");
-const delivery=document.getElementById("delivery");
-
 if(invoiceVisible)invoice.classList.add("show");
 render();
 
 /* SERVICE WORKER */
 if("serviceWorker"in navigator){
- const sw=`self.addEventListener('install',e=>self.skipWaiting());
- self.addEventListener('fetch',e=>{});`;
+ const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('fetch',e=>{});`;
  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"})));
 }
 </script>
