@@ -2,108 +2,168 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>LA MAYORISTA EXPRESS</title>
-<meta name="theme-color" content="#ff5722">
-<meta name="description" content="LA MAYORISTA EXPRESS - Marketplace mayorista en Cuba">
+
+<meta name="theme-color" content="#ff4d00">
+<meta name="description" content="LA MAYORISTA EXPRESS - Marketplace mayorista estilo Temu en Cuba">
+
 <link rel="manifest" href='data:application/json,{
-  "name":"LA MAYORISTA EXPRESS",
-  "short_name":"MAYORISTA",
-  "start_url":".",
-  "display":"standalone",
-  "background_color":"#ffffff",
-  "theme_color":"#ff5722",
-  "icons":[{"src":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB","sizes":"192x192","type":"image/png"}]
+ "name":"LA MAYORISTA EXPRESS",
+ "short_name":"MAYORISTA",
+ "start_url":".",
+ "display":"standalone",
+ "background_color":"#ffffff",
+ "theme_color":"#ff4d00"
 }'>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
-body{background:#f5f5f5;color:#222}
-header{position:fixed;top:0;left:0;right:0;background:#ff5722;color:#fff;z-index:1000;padding:10px}
-header h1{font-size:18px;text-align:center}
-.top-controls{display:flex;gap:6px;margin-top:6px}
-.top-controls input{flex:1;padding:8px;border-radius:20px;border:none}
-.top-controls select,.cart-btn{padding:8px;border-radius:20px;border:none}
-.cart-btn{background:#fff;color:#ff5722;font-weight:bold}
-.marquee{margin-top:6px;overflow:hidden;white-space:nowrap}
-.marquee span{display:inline-block;padding-left:100%;animation:mar 15s linear infinite}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto}
+body{background:#f6f6f6;color:#222}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;background:#ff4d00;color:#fff;z-index:1000;padding:10px}
+header h1{text-align:center;font-size:20px;font-weight:800}
+.header-row{display:flex;gap:6px;margin-top:8px}
+.header-row input{flex:1;padding:10px;border-radius:25px;border:none;font-size:14px}
+.header-row select,.cart-btn{padding:10px;border-radius:25px;border:none;font-weight:700}
+.cart-btn{background:#fff;color:#ff4d00}
+
+/* MARQUEE */
+.marquee{margin-top:8px;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:mar 18s linear infinite;font-weight:600}
 @keyframes mar{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-main{padding-top:130px;padding-bottom:40px}
-.products{display:grid;grid-template-columns:1fr;gap:12px;padding:12px}
-.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
-.card h3{font-size:16px}
-.price{font-weight:bold;color:#ff5722}
-.controls{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.controls button{width:32px;height:32px;border:none;border-radius:50%;background:#ff5722;color:#fff;font-size:18px}
-.drawer{position:fixed;top:0;left:-100%;width:100%;height:100%;background:#fff;z-index:2000;transition:.3s;padding:12px;overflow:auto}
+
+/* MAIN */
+main{padding-top:150px;padding-bottom:60px}
+.products{display:grid;grid-template-columns:1fr;gap:18px;padding:14px}
+
+/* PRODUCT CARD (TEMU STYLE BIG) */
+.card{
+ background:#fff;
+ border-radius:22px;
+ padding:18px;
+ box-shadow:0 8px 20px rgba(0,0,0,.12);
+ transition:.25s
+}
+.card h3{font-size:20px;font-weight:800;margin-bottom:6px}
+.card small{opacity:.7}
+.price{font-size:22px;font-weight:900;color:#ff4d00;margin:10px 0}
+.controls{display:flex;justify-content:space-between;align-items:center}
+.controls button{
+ width:44px;height:44px;
+ border:none;border-radius:50%;
+ background:#ff4d00;color:#fff;
+ font-size:22px;font-weight:800
+}
+.controls span{font-size:18px;font-weight:700}
+
+/* DRAWER */
+.drawer{
+ position:fixed;top:0;left:-100%;
+ width:100%;height:100%;
+ background:#fff;z-index:2000;
+ transition:.35s;padding:16px;overflow:auto
+}
 .drawer.open{left:0}
-.drawer h2{text-align:center;margin-bottom:10px}
-.drawer-item{display:flex;justify-content:space-between;margin:6px 0}
-.total{font-size:18px;font-weight:bold;margin-top:10px}
+.drawer h2{text-align:center;margin-bottom:12px}
+.drawer-item{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}
+.total{font-size:20px;font-weight:900;margin:12px 0}
+
+/* FORM */
 .form-group{margin:8px 0}
-.form-group input,.form-group select{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc}
-.invoice{background:#f9f9f9;padding:10px;border-radius:8px;margin-top:10px;display:none}
+.form-group input,.form-group select{
+ width:100%;padding:10px;
+ border-radius:10px;border:1px solid #ccc
+}
+
+/* INVOICE */
+.invoice{
+ background:#f2f2f2;
+ border-radius:12px;
+ padding:12px;
+ margin-top:10px;
+ display:none;font-size:14px
+}
 .invoice.show{display:block}
-.announce{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#ff5722;color:#fff;padding:10px 16px;border-radius:20px;display:none;z-index:3000}
+
+/* ANNOUNCE */
+.announce{
+ position:fixed;bottom:20px;left:50%;
+ transform:translateX(-50%);
+ background:#ff4d00;color:#fff;
+ padding:12px 18px;
+ border-radius:25px;
+ font-weight:700;
+ display:none;z-index:3000
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>LA MAYORISTA EXPRESS</h1>
-  <div class="top-controls">
-    <input id="search" placeholder="Buscar productos...">
-    <select id="currency">
-      <option value="CUP">CUP</option>
-      <option value="USD">USD</option>
-      <option value="MLC">MLC</option>
-      <option value="TC">Tarjeta Clásica</option>
-      <option value="CRYPTO">Criptomoneda</option>
-    </select>
-    <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cartTotal">0</span></button>
-  </div>
-  <div class="marquee"><span>🔥 Ofertas mayoristas • 🚚 Envíos rápidos • 💰 Precios reales de mercado • 🛒 Compra segura</span></div>
+<h1>LA MAYORISTA EXPRESS</h1>
+<div class="header-row">
+<input id="search" placeholder="Buscar productos...">
+<select id="currency">
+<option value="CUP">CUP</option>
+<option value="USD">USD</option>
+<option value="MLC">MLC</option>
+<option value="TC">Tarjeta Clásica</option>
+<option value="CRYPTO">Criptomoneda</option>
+</select>
+<button class="cart-btn" onclick="toggleCart()">🛒 <span id="cartTotal">0</span></button>
+</div>
+<div class="marquee">
+<span>🔥 Precios mayoristas reales • 🚚 Entregas rápidas • 💰 Ahorra comprando más • 🛒 Compra segura</span>
+</div>
 </header>
 
 <main>
-  <div class="products" id="products"></div>
+<div class="products" id="products"></div>
 </main>
 
+<!-- CART DRAWER -->
 <div class="drawer" id="cart">
-  <h2>Carrito</h2>
-  <div id="cartItems"></div>
-  <div class="total" id="cartSum"></div>
-  <button onclick="clearCart()">Vaciar carrito</button>
+<h2>Carrito</h2>
+<div id="cartItems"></div>
+<div class="total" id="cartSum"></div>
+<button onclick="clearCart()">Vaciar carrito</button>
 
-  <h3>Datos del cliente</h3>
-  <div class="form-group"><input id="name" placeholder="Nombre completo"></div>
-  <div class="form-group"><input id="phone" placeholder="Teléfono"></div>
-  <div class="form-group"><input id="address" placeholder="Dirección"></div>
-  <div class="form-group">
-    <select id="pay">
-      <option>Efectivo</option>
-      <option>Transferencia</option>
-      <option>MLC</option>
-      <option>Cripto</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <select id="delivery">
-      <option>Mensajería</option>
-      <option>Recoger en tienda</option>
-    </select>
-  </div>
+<h3>Datos del cliente</h3>
+<div class="form-group"><input id="name" placeholder="Nombre completo"></div>
+<div class="form-group"><input id="phone" placeholder="Teléfono"></div>
+<div class="form-group"><input id="address" placeholder="Dirección"></div>
+<div class="form-group">
+<select id="pay">
+<option>Efectivo</option>
+<option>Transferencia</option>
+<option>MLC</option>
+<option>Criptomoneda</option>
+</select>
+</div>
+<div class="form-group">
+<select id="delivery">
+<option>Mensajería</option>
+<option>Recoger en tienda</option>
+</select>
+</div>
 
-  <button onclick="toggleInvoice()">Ver / Ocultar factura</button>
-  <div class="invoice" id="invoice"></div>
+<button onclick="toggleInvoice()">Ver / Ocultar factura</button>
+<div class="invoice" id="invoice"></div>
 
-  <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
-  <button onclick="toggleCart()">Cerrar</button>
+<button onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
+<button onclick="toggleCart()">Cerrar</button>
 </div>
 
 <div class="announce" id="announce"></div>
 
 <script>
-const rates={USD:495,MLC:410,TC:410,CRYPTO:495,CUP:1};
+/* TASA */
+const rates={CUP:1,USD:495,MLC:410,TC:410,CRYPTO:495};
+
+/* PRODUCTOS EXACTAMENTE 60 */
 const products=[
 ["🍚 Saco de Arroz (100 lb)","saco",13600],
 ["🫘 Frijol negro","lb",224],
@@ -111,7 +171,7 @@ const products=[
 ["🍬 Azúcar","lb",184],
 ["🌽 Harina de maíz","lb",120],
 ["🌽 Maíz en grano","lb",112],
-["🍝 Espagueti 500g","unidad",224],
+["🍝 Espagueti 500 g","unidad",224],
 ["🍗 Pollo","lb",256],
 ["🐖 Carne de cerdo","lb",520],
 ["🥩 Picadillo","lb",320],
@@ -128,119 +188,167 @@ const products=[
 ["🥔 Papa","lb",160],
 ["🍌 Plátano vianda","lb",96],
 ["🍞 Pan","unidad",120],
-["🍚 Arroz congrí preparado","kg",400],
-["🥫 Pasta de tomate","unidad",280],
 ["🧂 Sal","lb",80],
-["🧈 Margarina","unidad",320],
-["🍯 Miel","unidad",600],
 ["🥕 Zanahoria","lb",160],
 ["🥬 Col","lb",144],
+["🍊 Naranja","lb",96],
 ["🍍 Piña","unidad",400],
 ["🍉 Melón","unidad",480],
-["🍊 Naranja","lb",96],
-["🍋 Limón","lb",120],
-["🧃 Refresco","unidad",200],
-["🥤 Jugo","unidad",240],
-["🧽 Esponja","unidad",120],
-["🪣 Cubo plástico","unidad",600],
-["🧴 Cloro","litro",200],
-["🧼 Suavizante","litro",480],
-["🧺 Jabón lavar","lb",240],
-["🍖 Costilla cerdo","lb",560],
-["🐄 Carne res","lb",960],
-["🥓 Tocino","lb",640],
-["🍗 Muslo pollo","lb",280],
-["🥫 Sardinas","unidad",320],
-["🥫 Atún","unidad",560],
-["🍪 Galletas","paquete",200],
 ["🍫 Chocolate","unidad",320],
-["🧂 Condimento mixto","unidad",160],
-["🍚 Harina trigo","lb",160],
-["🥛 Leche líquida","litro",240],
+["🍪 Galletas","paquete",200],
+["🥫 Atún","unidad",560],
+["🥫 Sardinas","unidad",320],
+["🍗 Muslo de pollo","lb",280],
+["🍖 Costilla cerdo","lb",560],
+["🐄 Carne de res","lb",960],
+["🥓 Tocino","lb",640],
+["🧽 Esponja","unidad",120],
+["🧴 Cloro","litro",200],
 ["🧼 Shampoo","unidad",600],
 ["🪥 Pasta dental","unidad",320],
-["🧴 Alcohol","litro",400]
+["🧺 Jabón lavar","lb",240],
+["🧴 Alcohol","litro",400],
+["🪣 Cubo plástico","unidad",600],
+["🧃 Jugo","unidad",240],
+["🥤 Refresco","unidad",200],
+["🍯 Miel","unidad",600],
+["🧈 Margarina","unidad",320],
+["🧂 Condimento","unidad",160],
+["🍚 Harina trigo","lb",160],
+["🥛 Leche líquida","litro",240],
+["🧼 Suavizante","litro",480],
+["🍪 Dulce seco","paquete",180],
+["🧴 Desodorante","unidad",520],
+["🧻 Servilletas","paquete",240]
 ];
+
 let cart=JSON.parse(localStorage.getItem("cart")||"{}");
 let currency=localStorage.getItem("currency")||"CUP";
+let invoiceVisible=localStorage.getItem("invoice")=="1";
 
 document.getElementById("currency").value=currency;
 
+/* RENDER */
 function render(){
-  const list=document.getElementById("products");
-  list.innerHTML="";
-  products.forEach((p,i)=>{
-    if(document.getElementById("search").value && !p[0].toLowerCase().includes(document.getElementById("search").value.toLowerCase()))return;
-    const qty=cart[i]||0;
-    const div=document.createElement("div");
-    div.className="card";
-    div.innerHTML=`<h3>${p[0]}</h3><div>${p[1]}</div>
-    <div class="price">${convert(p[2])}</div>
-    <div class="controls">
-      <button onclick="add(${i},-1)">➖</button>
-      <span>${qty}</span>
-      <button onclick="add(${i},1)">➕</button>
-    </div>`;
-    list.appendChild(div);
-  });
-  updateCart();
+ const list=document.getElementById("products");
+ list.innerHTML="";
+ products.forEach((p,i)=>{
+  if(search.value && !p[0].toLowerCase().includes(search.value.toLowerCase()))return;
+  const q=cart[i]||0;
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+  <h3>${p[0]}</h3>
+  <small>${p[1]}</small>
+  <div class="price">${convert(p[2])}</div>
+  <div class="controls">
+   <button onclick="add(${i},-1)">➖</button>
+   <span>${q}</span>
+   <button onclick="add(${i},1)">➕</button>
+  </div>`;
+  list.appendChild(d);
+ });
+ updateCart();
 }
-function convert(v){
-  if(currency==="CUP")return v+" CUP";
-  return (v/rates[currency]).toFixed(2)+" "+currency;
-}
-function add(i,d){
-  cart[i]=(cart[i]||0)+d;
-  if(cart[i]<0)cart[i]=0;
-  save();
-}
-function save(){
-  localStorage.setItem("cart",JSON.stringify(cart));
-  localStorage.setItem("currency",currency);
-  render();
-}
-function updateCart(){
-  let sum=0;
-  let items="";
-  Object.keys(cart).forEach(i=>{
-    if(cart[i]>0){
-      const p=products[i];
-      const sub=p[2]*cart[i];
-      sum+=sub;
-      items+=`<div class="drawer-item">${p[0]} x${cart[i]} <span>${convert(sub)}</span></div>`;
-    }
-  });
-  document.getElementById("cartItems").innerHTML=items;
-  document.getElementById("cartSum").innerText="Total: "+convert(sum);
-  document.getElementById("cartTotal").innerText=convert(sum);
-  document.getElementById("invoice").innerText=items+"\nTotal: "+convert(sum);
-}
-function toggleCart(){document.getElementById("cart").classList.toggle("open")}
-function clearCart(){cart={};save()}
-function toggleInvoice(){document.getElementById("invoice").classList.toggle("show")}
-function sendWhatsApp(){
-  const text=encodeURIComponent(document.getElementById("invoice").innerText);
-  window.open("https://wa.me/53420021?text="+text,"_blank");
-}
-document.getElementById("currency").onchange=e=>{currency=e.target.value;save()}
-document.getElementById("search").oninput=render;
 
+/* CONVERT */
+function convert(v){
+ if(currency==="CUP")return v+" CUP";
+ return (v/rates[currency]).toFixed(2)+" "+currency;
+}
+
+/* ADD */
+function add(i,d){
+ cart[i]=(cart[i]||0)+d;
+ if(cart[i]<0)cart[i]=0;
+ save();
+}
+
+/* SAVE */
+function save(){
+ localStorage.setItem("cart",JSON.stringify(cart));
+ localStorage.setItem("currency",currency);
+ localStorage.setItem("invoice",invoiceVisible?1:0);
+ render();
+}
+
+/* CART */
+function updateCart(){
+ let sum=0,items="",inv="";
+ Object.keys(cart).forEach(i=>{
+  if(cart[i]>0){
+   const p=products[i];
+   const sub=p[2]*cart[i];
+   sum+=sub;
+   items+=`<div class="drawer-item">${p[0]} x${cart[i]} <span>${convert(sub)}</span></div>`;
+   inv+=`${p[0]} | ${cart[i]} x ${convert(p[2])} = ${convert(sub)}\n`;
+  }
+ });
+ const envio=document.getElementById("delivery").value==="Mensajería"?500:0;
+ document.getElementById("cartItems").innerHTML=items;
+ document.getElementById("cartSum").innerText="Total: "+convert(sum+envio);
+ document.getElementById("cartTotal").innerText=convert(sum+envio);
+ document.getElementById("invoice").innerText=
+`LA MAYORISTA EXPRESS
+Fecha: ${new Date().toLocaleDateString()}
+
+Cliente: ${name.value}
+Teléfono: ${phone.value}
+Dirección: ${address.value}
+
+PRODUCTOS
+${inv}
+
+Subtotal: ${convert(sum)}
+Envío: ${convert(envio)}
+TOTAL: ${convert(sum+envio)}
+
+Pago: ${pay.value}
+Entrega: ${delivery.value}`;
+}
+
+/* UI */
+function toggleCart(){cartDiv.classList.toggle("open")}
+function clearCart(){cart={};save()}
+function toggleInvoice(){invoiceVisible=!invoiceVisible;invoice.classList.toggle("show");save()}
+
+/* WHATSAPP */
+function sendWhatsApp(){
+ const text=encodeURIComponent(invoice.innerText);
+ window.open("https://wa.me/53420021?text="+text,"_blank");
+}
+
+/* EVENTS */
+search.oninput=render;
+currency.onchange=e=>{currency=e.target.value;save()};
+["name","phone","address","pay","delivery"].forEach(id=>{
+ document.getElementById(id).oninput=save;
+});
+
+/* ANNOUNCES */
 setInterval(()=>{
-  const a=document.getElementById("announce");
-  a.innerText=["🔥 Oferta especial","🚚 Envíos rápidos","💰 Precios mayoristas"][Math.floor(Math.random()*3)];
-  a.style.display="block";
-  setTimeout(()=>a.style.display="none",3000);
+ const msgs=[
+ "🔥 Grandes ofertas mayoristas",
+ "🚚 Entregas rápidas disponibles",
+ "💰 Ahorra comprando al por mayor"
+ ];
+ announce.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+ announce.style.display="block";
+ setTimeout(()=>announce.style.display="none",3000);
 },[20000,30000,60000][Math.floor(Math.random()*3)]);
 
+/* INIT */
+const cartDiv=document.getElementById("cart");
+const invoice=document.getElementById("invoice");
+if(invoiceVisible)invoice.classList.add("show");
 render();
 
+/* SERVICE WORKER */
 if("serviceWorker"in navigator){
-  const sw=`
-  self.addEventListener('install',e=>self.skipWaiting());
-  self.addEventListener('fetch',e=>{});
-  `;
-  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"})));
+ const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('fetch',e=>{});`;
+ navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"})));
 }
 </script>
+
 </body>
-  </html>
+</html>
